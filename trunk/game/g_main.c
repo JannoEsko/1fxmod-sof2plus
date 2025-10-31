@@ -25,15 +25,11 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #include "boe_local.h"
 
 #ifdef __linux__
-#include "./tadns/tadns.h"
 #include <netdb.h>
 #ifndef __USE_POSIX199309
 #include <asm/sigcontext.h>
 #endif // __USE_POSIX199309
 
-#if (defined(__GNUC__) && __GNUC__ < 3)
-unsigned char   memsys5[41943040]; // Boe!Man 1/29/13: Buffer of 40 MB, available for SQLite memory management (Linux).
-#endif // GNUC < 3
 #elif WIN32
 #include <windows.h>
 HANDLE lockFile;
@@ -1296,7 +1292,8 @@ void G_initClientMod()
         // Also add the .pk3s from this fake fs_game in the sv_ref* list,
         // if 1fx. Additions are not enforced.
         if(!g_enforce1fxAdditions.integer){
-            Patch_addAdditionalFSGame(g_clientMod.string);
+            trap_Cvar_Set("sv_silverClientMod", g_clientMod.string);
+            trap_Cvar_Set("sv_goldClientMod", g_clientMod.string);
         }
     }else{
         if(strcmp(g_clientMod.string, "none") != 0){
@@ -1499,79 +1496,6 @@ void G_SetGametype ( const char* gametype )
 static const char *masterIPs[2] = { "master.sof2.ravensoft.com", "master.1fxmod.org" };
 static const int numMasterServers = 2;
 
-#if (defined(__linux__) && defined(__GNUC__) && __GNUC__ < 3)
-static void G_ResolveCallback(struct dns_cb_data *cbd)
-{
-    int     i;
-    char    master[12];
-    char    ip[MAX_IP];
-
-    switch (cbd->error) {
-    case DNS_OK:
-        switch (cbd->query_type) {
-        // All master servers have a valid A record, so this is what we're looking for.
-        case DNS_A_RECORD:
-            for(i = 0; i < numMasterServers; i++){
-                if(!strcmp(masterIPs[i], cbd->name)){
-                    // Note the sv_master CVAR num.
-                    Com_sprintf(master, sizeof(master), "sv_master%d", i+1);
-                    // Make a copy of the IP in a local buffer.
-                    Com_sprintf(ip, sizeof(ip), "%u.%u.%u.%u",
-                        cbd->addr[0], cbd->addr[1],
-                        cbd->addr[2], cbd->addr[3]);
-
-                    trap_Cvar_Set(master, ip);
-                    Com_Printf("Set %s to: %s (resolved from: %s)\n", master, ip, cbd->name);
-                }
-            }
-            break;
-        default:
-            Com_Printf("Unexpected query type %u for host %s.\n", cbd->query_type, cbd->name);
-            break;
-        }
-        break;
-    case DNS_TIMEOUT:
-        Com_Printf("Query timeout for host %s.\n", cbd->name);
-        break;
-    case DNS_DOES_NOT_EXIST:
-        Com_Printf("No such address for host %s.\n", cbd->name);
-        break;
-    case DNS_ERROR:
-        Com_Printf("System error occured while looking up host.\n");
-        break;
-    }
-}
-
-static void G_ResolveMasterIPs()
-{
-    struct dns          *dns;
-    fd_set              set;
-    int                 i;
-    struct timeval      tv = { 2, 0 }; // Timeout of 1 second per host, wait 2 seconds in-code because this is not the same as the real time out.
-
-    // Initialize the resolver.
-    if ((dns = dns_init()) == NULL) {
-        Com_Printf("ERROR: Couldn't initialize the DNS resolver.\n");
-        Com_Printf("Not making changes to sv_master CVARs due to error.\n");
-        return;
-    }
-
-    for(i = 0; i < numMasterServers; i++){
-        dns_queue(dns, &masterIPs[i], masterIPs[i], DNS_A_RECORD, G_ResolveCallback);
-
-        // Select on resolver socket.
-        FD_ZERO(&set);
-        FD_SET(dns_get_fd(dns), &set);
-
-        // Wait for the DNS resolver to finish.
-        if (select(dns_get_fd(dns) + 1, &set, NULL, NULL, &tv) == 1)
-            dns_poll(dns);
-    }
-
-    dns_fini(dns);
-}
-#endif // __linux__ && __GNUC__ < 3
-
 #ifdef __linux__
 // SIGINT handler.
 __sighandler_t G_InterruptHandler(int signal, struct sigcontext ctx)
@@ -1652,24 +1576,7 @@ void G_InitGame( int levelTime, int randomSeed, int restart )
     // Boe!Man 7/28/15: Enable proper multithreading for SQLite.
     sqlite3_config(SQLITE_CONFIG_SERIALIZED);
 
-    #if (defined(__linux__) && defined(__GNUC__) && __GNUC__ < 3)
-    // Boe!Man 1/29/13: Initialize the in-game memory-management buffer on Linux (SQLite3 memsys5).
-    memset(memsys5, 0, sizeof(memsys5));
-    sqlite3_config(SQLITE_CONFIG_HEAP, memsys5, 41943040, 64);
-    sqlite3_soft_heap_limit(40894464);
-
-    // Boe!Man 3/5/15: Force master to direct IP instead of hostname on Linux.
-    // Resolve the IP of the master servers using TADNS.
-    Com_Printf("------------------------------------------\n");
-    Com_Printf("Attempting to resolve master hostnames to IPs...\n");
-    i = trap_Milliseconds();
-
-    // Do the actual lookups.
-    G_ResolveMasterIPs();
-
-    Com_Printf("Lookups took %d milliseconds.\n", trap_Milliseconds() - i);
-    Com_Printf("------------------------------------------\n");
-    #else
+  
     Com_Printf("------------------------------------------\n");
 
     // Boe!Man 8/22/14: Users on platforms other than SoF2 v1.00 (Linux) get the regular DNS entries as master servers.
@@ -1685,7 +1592,6 @@ void G_InitGame( int levelTime, int randomSeed, int restart )
         Com_Printf("Set %s to: %s\n", master, masterIPs[i]);
     }
     Com_Printf("------------------------------------------\n");
-    #endif // __linux__ && __GNUC__ < 3
     trap_Cvar_Update(gameCvarTable->vmCvar);
 
     // Boe!Man 1/17/16: There's a small chance this will ever happen, but
@@ -1783,9 +1689,6 @@ void G_InitGame( int levelTime, int randomSeed, int restart )
     // Give the game a uniqe id
     trap_SetConfigstring ( CS_GAME_ID, va("%d", randomSeed ) );
     #endif // not _DEMO
-
-    // Apply memory runtime modifications.
-    Patch_Main();
 
     G_LogPrintf("------------------------------------------------------------\n");
     if ( g_log.string[0] )
@@ -2132,21 +2035,13 @@ void G_ShutdownGame( int restart )
     signal(SIGINT, SIG_DFL);
     #endif // __linux__
 
-    #if defined(__linux__) && (defined(__GNUC__) && __GNUC__ < 3)
-    sqlite3_shutdown();
-    memset(memsys5, 0, sizeof(memsys5));
-    Com_Printf("SQLite3 shutdown.\n");
-
-    // Boe!Man 1/28/15: Thanks to LinuxThreads, also kill the Thread Manager. This "fixes" a crash on "new" (> Linux 2.4) systems.
-    pthread_kill_other_threads_np();
-    Com_Printf("Thread Manager shutdown.\n");
-    #elif _WIN32
+    #if _WIN32
     UnlockFile(lockFile, 0, 0, 0xffffff, 0xffffff);
     CloseHandle(lockFile);
 
     trap_Cvar_VariableStringBuffer("fs_game", fsGame, sizeof(fsGame));
     DeleteFile(TEXT(va("%s\\srv.lck", fsGame)));
-    #endif // __linux__ && GNUC < 3
+    #endif 
 
     #ifdef _SOF2_BOTS
     if(trap_Cvar_VariableIntegerValue("bot_enable")){

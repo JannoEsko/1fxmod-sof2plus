@@ -218,10 +218,6 @@ void logStop()
 #include <sys/ucontext.h>
 #include <features.h>
 
-#if __GNUC__ < 3
-#include <libunwind.h>
-#endif // __GNUC__ < 3
-
 extern char *strsignal (int __sig) __THROW;
 
 // Function declarations.
@@ -314,7 +310,6 @@ Original code from ETpub.
 ==========================
 */
 
-#if __GNUC__ > 2
 // Regular backtrace function for SoF2 v1.03.
 void doBacktrace(ucontext_t *ctx)
 {
@@ -357,40 +352,7 @@ void doBacktrace(ucontext_t *ctx)
         free(strings);
     }
 }
-#else
-// libunwind method for SoF2 v1.00.
-void doBacktrace(ucontext_t *ctx)
-{
-    unw_cursor_t    cursor;
-    unw_context_t   context;
 
-    unw_getcontext(&context);
-    unw_init_local(&cursor, &context);
-
-    // We can safely skip the first frame, so use this as a check.
-    if(unw_step(&cursor) <= 0){
-        return;
-    }
-
-    crashLogger("Backtrace:\n");
-    // Loop through the rest.
-    while (unw_step(&cursor) > 0)
-    {
-        unw_word_t  offset, pc;
-        char        fname[64];
-
-        unw_get_reg(&cursor, UNW_REG_IP, &pc);
-
-        fname[0] = '\0';
-        (void) unw_get_proc_name(&cursor, fname, sizeof(fname), &offset);
-
-        crashLogger (va("(%d) %p: (%s+0x%x) [%p]\n", ++numStackFrames, pc, fname, offset, pc));
-    }
-
-    // Finish, also log the number of stack frames processed.
-    crashLogger(va("Stack frames: %d entries\n", numStackFrames));
-}
-#endif // __GNUC__ > 2
 
 /*
 ==========================

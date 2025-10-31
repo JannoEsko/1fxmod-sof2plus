@@ -2946,13 +2946,8 @@ void Boe_SQLStats(void)
     Com_Printf("%-25s Mac OS X\n", "[^3Host OS^7]");
     #endif // _WIN32
 
-    #if defined(__linux__) && (defined(__GNUC__) && __GNUC__ < 3)
-    Com_Printf("%-25s memsys5\n", "[^3Memory allocator^7]");
-    Com_Printf("%-25s 41943040B (40M)\n", "[^3Heap limit^7]");
-    #else
     Com_Printf("%-25s Native\n", "[^3Memory allocator^7]");
     Com_Printf("%-25s None defined\n", "[^3Heap limit^7]");
-    #endif // __linux__ && GNUC < 3
     Com_Printf("%-25s %iB (%.2fM)\n", "[^3Mem in use^7]", mem, memInM);
 
     Com_Printf("\nUse ^3[Page Up] ^7and ^3[Page Down] ^7keys to scroll\n\n");

@@ -167,22 +167,11 @@ if [ $numargs -gt 0 ]; then
         buildoptions="$buildoptions -fstack-check"
     fi
 else
-	# Check what version to build. If the host system contains GCC 2.95, we assume we want to build for v1.00.
-    if ! ([[ $compiler == "gcc" ]] && [[ `$compiler -v 2>&1 | tail -1 | awk '{print $3}'` == *"2.95"* ]]); then
-        buildoptions="$buildoptions -D_GOLD"
-        gold=true
 
-        # Optionally detect Linux operating system.
-		if [[ `uname -o` == *"Linux"* ]]; then
-			linux=true
-			outfile="sof2mp_gamei386.so"
-		fi
-    else
-		# GCC 2.95, thus Linux.
+    if [[ `uname -o` == *"Linux"* ]]; then
 		linux=true
-        outfile="sof2mp_gamei386.so"
-    fi
-
+		outfile="sof2mp_gamei386.so"
+	fi
     # Properly detect Mac OS X operating system.
     if [[ `uname -p` == "powerpc" ]]; then
         macosx=true
@@ -199,13 +188,24 @@ else
         outfile="sof2mp_gamex86.dll"
     fi
 
-    # Check what version to build. If the host system contains GCC 2.95, we assume we want to build for v1.00.
-    if ! ([[ $compiler == "gcc" ]] && [[ `$compiler -v 2>&1 | tail -1 | awk '{print $3}'` == *"2.95"* ]]); then
+    echo "Enter the game protocol to build:"
+    echo "1: SoF2 v1.00 (Full)"
+    echo "2: SoF2 1.03 (Gold)"
+    echo "3: SoF2 v1.02t (MP TEST/Demo)"
+    read choice
+
+    if [ $choice == "2" ]; then
         buildoptions="$buildoptions -D_GOLD"
         gold=true
+    elif [ $choice == "3" ]; then
+        buildoptions="$buildoptions -D_DEMO"
+        demo=true
     fi
+    
+	
 
     # Get the type of build to build.
+    clear
     echo "Enter the type of build:"
     echo "1: Public release build (e.g. 0.70)"
     echo "2: Public release build with developer (e.g. 0.78-dev)"
@@ -349,10 +349,6 @@ printf "Converting CRLF to LF.. "
 dos2unix ./sqlite/sqlite3.c &> /dev/null
 dos2unix ./sqlite/sqlite3.h &> /dev/null
 dos2unix ./sqlite/sqlite3ext.h &> /dev/null
-# TADNS files.
-dos2unix ./tadns/tadns.c &> /dev/null
-dos2unix ./tadns/tadns.h &> /dev/null
-dos2unix ./tadns/llist.h &> /dev/null
 
 # Main files.
 # *.c files.
@@ -407,133 +403,88 @@ do
     if [ $win32dev == false ]; then
         compile $cFile "$buildoptions"
     else
-        if [[ $cFile == "patch_"* ]]; then
-            compile $cFile "-O2 $buildoptions"
-        else
-            compile $cFile "$buildoptions"
-        fi
+        compile $cFile "$buildoptions"
     fi
 done
 
 # SQLite (and TADNS for SoF2 - v1.00 on Linux).
-if [[ $gold == false ]] && [[ $linux == true ]]; then
-    compile "./tadns/tadns.c" "-O2 $strip -fstack-check -fPIC -c"
-    compile "./sqlite/sqlite3.c" "-O2 $strip -fstack-check -DNDEBUG -DSQLITE_OMIT_LOAD_EXTENSION -DSQLITE_ENABLE_MEMSYS5 -fPIC -c"
+if [ $m32 == true ]; then
+    m32b="-m32"
 else
+    m32b=""
+fi
+
+if [ $win32 == true ]; then
+    compile "./sqlite/sqlite3.c" "-O2 $m32b $strip -fstack-check -DNDEBUG -DSQLITE_OMIT_LOAD_EXTENSION -c"
+elif [ $linux == true ]; then
+    compile "./sqlite/sqlite3.c" "-O2 $m32b $strip -fstack-check -DNDEBUG -DSQLITE_OMIT_LOAD_EXTENSION -fPIC -c"
+elif [ $macosx == true ]; then
+    compile "./sqlite/sqlite3.c" "-O2 $m32b $strip -fstack-check -DNDEBUG -DSQLITE_OMIT_LOAD_EXTENSION -DSQLITE_WITHOUT_ZONEMALLOC -fPIC -c"
+fi
+
+printf "Now linking the target file.. "
+# Link the Mod.
+# Regular dynamic linking.
+if [ $macosx == true ]; then
+    if [[ $linker == "" ]]; then
+        linker="cc"
+    fi
+
+    $linker $linkfiles -dynamic -bundle -o $outfile -lpthread -lm -lc -ldl 2>> compile_log
+elif [ $win32 == true ]; then
     if [ $m32 == true ]; then
         m32b="-m32"
     else
         m32b=""
     fi
 
-    if [ $win32 == true ]; then
-        compile "./sqlite/sqlite3.c" "-O2 $m32b $strip -fstack-check -DNDEBUG -DSQLITE_OMIT_LOAD_EXTENSION -c"
-    elif [ $linux == true ]; then
-        compile "./sqlite/sqlite3.c" "-O2 $m32b $strip -fstack-check -DNDEBUG -DSQLITE_OMIT_LOAD_EXTENSION -fPIC -c"
-    elif [ $macosx == true ]; then
-        compile "./sqlite/sqlite3.c" "-O2 $m32b $strip -fstack-check -DNDEBUG -DSQLITE_OMIT_LOAD_EXTENSION -DSQLITE_WITHOUT_ZONEMALLOC -fPIC -c"
+    if [[ $linker == "" ]]; then
+        linker="gcc"
     fi
-fi
 
-printf "Now linking the target file.. "
-# Link the Mod.
-if [[ $gold == false ]] && [[ $linux == true ]]; then
-    # This links the Mod dynamically with static dependencies.
-    if [ $dev == false ]; then
-        # Static libraries to link against (SoF2 v1.00 Linux).
-        # Don't include libunwind in release builds.
-        libs=""
-        libs="$libs /usr/lib/libpthread.a"
-        libs="$libs /usr/lib/libm.a"
-        libs="$libs /usr/lib/libc.a"
-        libs="$libs /usr/lib/gcc-lib/i386-linux/2.95.4/libgcc.a"
-        libs="$libs /usr/lib/libdl.a"
+    if [[ `uname -a` == *"Msys"* ]] && [[ `uname -a` == "MINGW32"* ]]; then
+        pthread="-lpthreadGC2"
+    else
+        pthread="-lpthread"
+    fi
 
-        if [ $verbose == true ]; then
-            printf "ld $strip -shared $linkfiles -Bstatic $libs -o $outfile.. "
-        fi
-
-		ld $strip -shared $linkfiles -Bstatic $libs -o $outfile 2>> compile_log
+	if [ $dev == false ]; then
+		$linker $m32b $strip -shared $linkfiles -static -static-libgcc $pthread -o $outfile 2>> compile_log
 	else
-        # Static libraries to link against (SoF2 v1.00 Linux).
-        libs=""
-        libs="$libs /usr/local/lib/libunwind-x86.a"
-        libs="$libs /usr/local/lib/libunwind.a"
-        libs="$libs /usr/lib/libpthread.a"
-        libs="$libs /usr/lib/libm.a"
-        libs="$libs /usr/lib/libc.a"
-        libs="$libs /usr/lib/gcc-lib/i386-linux/2.95.4/libgcc.a"
-        libs="$libs /usr/lib/libdl.a"
+		$linker $m32b -shared $linkfiles -static -static-libgcc $pthread -o $outfile 2>> compile_log
+	fi
+else # Linux.
+    if [[ $linker == "" ]]; then
+        linker="gcc"
+    fi
+
+    if [ $m32 == true ]; then
+        if [[ $linker == "ld" ]]; then
+            m32b="-m elf_i386"
+        else
+            m32b="-m32"
+        fi
+    else
+        m32b=""
+    fi
+
+	if [ $dev == false ]; then
+		$linker $strip $m32b -shared $linkfiles -lpthread -lm -lc -ldl -o $outfile 2>> compile_log
+	else
+		# With developer enabled.
+		if [[ $linker == "ld" ]]; then
+            printf "WARNING: linking with 'ld' may cause a broken backtrace, consider using 'gcc' instead.. "
+			rdynamic="--export-dynamic"
+		else
+			rdynamic="-rdynamic"
+		fi
 
         if [ $verbose == true ]; then
-            printf "ld -E -shared $linkfiles -Bstatic $libs -o $outfile.. "
+            printf "$linker $m32b -fPIC $rdynamic -shared $linkfiles -lpthread -lm -lc -ldl -o $outfile.. "
         fi
 
-		ld -E -shared $linkfiles -Bstatic $libs -o $outfile 2>> compile_log
+		$linker $m32b -fPIC $rdynamic -shared $linkfiles -lpthread -lm -lc -ldl -o $outfile 2>> compile_log
 	fi
-else
-    # Regular dynamic linking.
-    if [ $macosx == true ]; then
-        if [[ $linker == "" ]]; then
-            linker="cc"
-        fi
-
-        $linker $linkfiles -dynamic -bundle -o $outfile -lpthread -lm -lc -ldl 2>> compile_log
-    elif [ $win32 == true ]; then
-        if [ $m32 == true ]; then
-            m32b="-m32"
-        else
-            m32b=""
-        fi
-
-        if [[ $linker == "" ]]; then
-            linker="gcc"
-        fi
-
-        if [[ `uname -a` == *"Msys"* ]] && [[ `uname -a` == "MINGW32"* ]]; then
-            pthread="-lpthreadGC2"
-        else
-            pthread="-lpthread"
-        fi
-
-		if [ $dev == false ]; then
-			$linker $m32b $strip -shared $linkfiles -static -static-libgcc $pthread -o $outfile 2>> compile_log
-		else
-			$linker $m32b -shared $linkfiles -static -static-libgcc $pthread -o $outfile 2>> compile_log
-		fi
-    else # Linux.
-        if [[ $linker == "" ]]; then
-            linker="gcc"
-        fi
-
-        if [ $m32 == true ]; then
-            if [[ $linker == "ld" ]]; then
-                m32b="-m elf_i386"
-            else
-                m32b="-m32"
-            fi
-        else
-            m32b=""
-        fi
-
-		if [ $dev == false ]; then
-			$linker $strip $m32b -shared $linkfiles -lpthread -lm -lc -ldl -o $outfile 2>> compile_log
-		else
-			# With developer enabled.
-			if [[ $linker == "ld" ]]; then
-                printf "WARNING: linking with 'ld' may cause a broken backtrace, consider using 'gcc' instead.. "
-				rdynamic="--export-dynamic"
-			else
-				rdynamic="-rdynamic"
-			fi
-
-            if [ $verbose == true ]; then
-                printf "$linker $m32b -fPIC $rdynamic -shared $linkfiles -lpthread -lm -lc -ldl -o $outfile.. "
-            fi
-
-			$linker $m32b -fPIC $rdynamic -shared $linkfiles -lpthread -lm -lc -ldl -o $outfile 2>> compile_log
-		fi
-    fi
 fi
 printf "done!\n"
 

@@ -623,10 +623,6 @@ int GetArgument(int argNum);
 // =================================
 // SQLite3 related defintions.
 
-#if defined(__linux__) && (defined(__GNUC__) && __GNUC__ < 3)
-extern unsigned char    memsys5[41943040]; // Boe!Man 1/29/13: Buffer of 40 MB, available for SQLite memory management (Linux).
-#endif
-
 void        Boe_userdataIntegrity       (void);
 void        Boe_SQLStats                (void); // Boe!Man 1/30/13: Can be called via RCON with sql_stats.
 void        Boe_convertNonSQLChars      (char *input);
