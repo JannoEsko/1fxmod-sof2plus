@@ -170,7 +170,7 @@ else
 
     if [[ `uname -o` == *"Linux"* ]]; then
 		linux=true
-		outfile="sof2mp_gamei386.so"
+		outfile="sof2mp_gamex86.so"
 	fi
     # Properly detect Mac OS X operating system.
     if [[ `uname -p` == "powerpc" ]]; then
