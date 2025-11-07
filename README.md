@@ -1,4 +1,17 @@
-# 1fx. Mod
+# 1fx. Mod meets SoF2Plus
+
+This fork of 1fxmod has changes so that it would work with sof2plus.
+Mainly, those include:
+* Removing patch_* files, as engine patches are not needed any more.
+* Removing tadns, as modern Linux can resolve IP addresses fine.
+* Adding support to build 1.00 .so file on modern Linux to game.sh
+
+As the original SoF2Plus repository lacks legacy ABI support, compiling 1fxmod (especially 1.00) requires my version of SoF2Plus engine to run - https://github.com/JannoEsko/sof2plus-engine
+
+Rest of the mod is kept original.
+
+--
+
 1fx. Mod is a free server mod for all major versions of Soldier of Fortune II:
 Double Helix, mainly focusing on technical improvements, performance,
 security and flexibility. The mod is server side only but features built-in
