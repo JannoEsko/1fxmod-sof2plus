@@ -4,9 +4,17 @@ This fork of 1fxmod has changes so that it would work with sof2plus.
 Mainly, those include:
 * Removing patch_* files, as engine patches are not needed any more.
 * Removing tadns, as modern Linux can resolve IP addresses fine.
-* Adding support to build 1.00 .so file on modern Linux to game.sh
+* Adding x86_64 support
+* Introducing CMake to build the engine
+* Changing local game memory to be like sof2plus-game (VM_*Alloc routines)
+
+Unfortunately thanks to this, DEMO builds are not a part of CMake and the changes would also prevent running it.
 
 As the original SoF2Plus repository lacks legacy ABI support, compiling 1fxmod (especially 1.00) requires my version of SoF2Plus engine to run - https://github.com/JannoEsko/sof2plus-engine
+
+There are 2 minor fixes included:
+* Using colors in adding admin commands (e.g. !^ab) results in adding sadmin (even if the client is not privileged to do so / is only privileged to add b-admin)
+* Add missing GP_Delete in mvchats parsing
 
 Rest of the mod is kept original.
 
