@@ -20,58 +20,143 @@ jobs:
             compiler: gcc
             arch: x86_64
             build_type: Release
+            goldbuild: OFF
           - os: ubuntu-latest
             compiler: gcc
             arch: x86_64
             build_type: Debug
+            goldbuild: OFF
           - os: ubuntu-latest
             compiler: gcc
             arch: x86
             build_type: Release
+            goldbuild: OFF
           - os: ubuntu-latest
             compiler: gcc
             arch: x86
             build_type: Debug
+            goldbuild: OFF
           - os: windows-latest
             compiler: mingw
             arch: x86_64
             build_type: Release
+            goldbuild: OFF
           - os: windows-latest
             compiler: mingw
             arch: x86_64
             build_type: Debug
+            goldbuild: OFF
           - os: windows-latest
             compiler: mingw
             arch: x86
             build_type: Release
+            goldbuild: OFF
           - os: windows-latest
             compiler: mingw
             arch: x86
             build_type: Debug
+            goldbuild: OFF
           - os: debian-11
             compiler: gcc
             arch: x86_64
             build_type: Release
+            goldbuild: OFF
           - os: debian-11
             compiler: gcc
             arch: x86_64
             build_type: Debug
+            goldbuild: OFF
           - os: debian-11
             compiler: gcc
             arch: x86
             build_type: Release
+            goldbuild: OFF
           - os: debian-11
             compiler: gcc
             arch: x86
             build_type: Debug
+            goldbuild: OFF
           - os: ubuntu-24.04-arm
             compiler: gcc
             arch: arm64
             build_type: Debug
+            goldbuild: OFF
           - os: ubuntu-24.04-arm
             compiler: gcc
             arch: arm64
             build_type: Release
+            goldbuild: OFF
+            
+          - os: ubuntu-latest
+            compiler: gcc
+            arch: x86_64
+            build_type: Release
+            goldbuild: ON
+          - os: ubuntu-latest
+            compiler: gcc
+            arch: x86_64
+            build_type: Debug
+            goldbuild: ON
+          - os: ubuntu-latest
+            compiler: gcc
+            arch: x86
+            build_type: Release
+            goldbuild: ON
+          - os: ubuntu-latest
+            compiler: gcc
+            arch: x86
+            build_type: Debug
+            goldbuild: ON
+          - os: windows-latest
+            compiler: mingw
+            arch: x86_64
+            build_type: Release
+            goldbuild: ON
+          - os: windows-latest
+            compiler: mingw
+            arch: x86_64
+            build_type: Debug
+            goldbuild: ON
+          - os: windows-latest
+            compiler: mingw
+            arch: x86
+            build_type: Release
+            goldbuild: ON
+          - os: windows-latest
+            compiler: mingw
+            arch: x86
+            build_type: Debug
+            goldbuild: ON
+          - os: debian-11
+            compiler: gcc
+            arch: x86_64
+            build_type: Release
+            goldbuild: ON
+          - os: debian-11
+            compiler: gcc
+            arch: x86_64
+            build_type: Debug
+            goldbuild: ON
+          - os: debian-11
+            compiler: gcc
+            arch: x86
+            build_type: Release
+            goldbuild: ON
+          - os: debian-11
+            compiler: gcc
+            arch: x86
+            build_type: Debug
+            goldbuild: ON
+          - os: ubuntu-24.04-arm
+            compiler: gcc
+            arch: arm64
+            build_type: Debug
+            goldbuild: ON
+          - os: ubuntu-24.04-arm
+            compiler: gcc
+            arch: arm64
+            build_type: Release
+            goldbuild: ON
 
     runs-on: ${{ matrix.os == 'debian-11' && 'ubuntu-latest' || matrix.os }}
     container: ${{ matrix.os == 'debian-11' && 'debian:11' || '' }}
@@ -144,7 +229,7 @@ jobs:
           mkdir -p build && cd build
           FLAGS=""
           [ "${{ matrix.arch }}" = "x86" ] && FLAGS="-DFORCE_32BIT=ON -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32 -DCMAKE_EXE_LINKER_FLAGS=-m32"
-          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} $FLAGS -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$(pwd)/../artifacts/1fx/
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DBUILD_GOLD=${{ matrix.goldbuild }} $FLAGS -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$(pwd)/../artifacts/1fx/
           cmake --build . --parallel
 
       - name: Build (CMake - MinGW)
@@ -154,7 +239,7 @@ jobs:
           mkdir -p build && cd build
           FLAGS=""
           [ "${{ matrix.arch }}" = "x86" ] && FLAGS="-DFORCE_32BIT=ON -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32 -DCMAKE_EXE_LINKER_FLAGS=-m32"
-          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} $FLAGS -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$(pwd)/../artifacts/1fx/
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DBUILD_GOLD=${{ matrix.goldbuild }} $FLAGS -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$(pwd)/../artifacts/1fx/
           cmake --build . --parallel
 
       - name: Build (MSVC)
@@ -190,38 +275,72 @@ jobs:
           mkdir -p artifacts/1fx
           find build -name "*.so" -exec cp {} artifacts/1fx/ \; 2>/dev/null || true
 
-      - name: Archive (Ubuntu)
-        if: always() && (matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04-arm')
+      - name: Archive (Ubuntu; Silver)
+        if: always() && (matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04-arm') && matrix.goldbuild == 'OFF'
         run: |
           cd artifacts
-          tar -czf "../1fxmod-sof2plus-linux-${{ matrix.arch }}-${{ matrix.build_type }}-gcc.tar.gz" 1fx
+          tar -czf "../1fxmod-sof2plus-silver-linux-${{ matrix.arch }}-${{ matrix.build_type }}-gcc.tar.gz" 1fx
 
-      - name: Archive (Debian 11)
-        if: always() && matrix.os == 'debian-11'
+      - name: Archive (Debian 11; Silver)
+        if: always() && matrix.os == 'debian-11' && matrix.goldbuild == 'OFF'
         run: |
           cd artifacts
-          tar -czf "../1fxmod-sof2plus-debian11-${{ matrix.arch }}-${{ matrix.build_type }}-gcc.tar.gz" 1fx
+          tar -czf "../1fxmod-sof2plus-silver-debian11-${{ matrix.arch }}-${{ matrix.build_type }}-gcc.tar.gz" 1fx
 
-      - name: Archive (Windows)
-        if: always() && matrix.os == 'windows-latest'
+      - name: Archive (Windows; Silver)
+        if: always() && matrix.os == 'windows-latest' && matrix.goldbuild == 'OFF'
         shell: pwsh
         run: |
           cd artifacts
-          Compress-Archive -Path 1fx -DestinationPath "../1fxmod-sof2plus-windows-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}.zip" -Force
+          Compress-Archive -Path 1fx -DestinationPath "../1fxmod-sof2plus-silver-windows-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}.zip" -Force
 
-      - name: Upload (Windows)
-        if: always() && matrix.os == 'windows-latest'
+      - name: Upload (Windows; Silver)
+        if: always() && matrix.os == 'windows-latest' && matrix.goldbuild == 'OFF'
+        uses: actions/upload-artifact@v4
+        with:
+          name: 1fxmod-sof2plus-silver-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
+          path: '1fxmod-sof2plus-silver-windows-*.zip'
+
+      - name: Upload (Linux; Silver)
+        if: always() && matrix.compiler == 'gcc' && matrix.goldbuild == 'OFF'
+        uses: actions/upload-artifact@v4
+        with:
+          name: 1fxmod-sof2plus-silver-${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
+          path: ${{ matrix.os == 'debian-11' && '1fxmod-sof2plus-silver-debian11-*.tar.gz' || '1fxmod-sof2plus-silver-linux-*.tar.gz' }}
+          
+          asdf
+      - name: Archive (Ubuntu; Gold)
+        if: always() && (matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04-arm') && matrix.goldbuild == 'ON'
+        run: |
+          cd artifacts
+          tar -czf "../1fxmod-sof2plus-gold-linux-${{ matrix.arch }}-${{ matrix.build_type }}-gcc.tar.gz" 1fx
+
+      - name: Archive (Debian 11; Gold)
+        if: always() && matrix.os == 'debian-11' && matrix.goldbuild == 'ON'
+        run: |
+          cd artifacts
+          tar -czf "../1fxmod-sof2plus-gold-debian11-${{ matrix.arch }}-${{ matrix.build_type }}-gcc.tar.gz" 1fx
+
+      - name: Archive (Windows; Gold)
+        if: always() && matrix.os == 'windows-latest' && matrix.goldbuild == 'ON'
+        shell: pwsh
+        run: |
+          cd artifacts
+          Compress-Archive -Path 1fx -DestinationPath "../1fxmod-sof2plus-gold-windows-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}.zip" -Force
+
+      - name: Upload (Windows; Gold)
+        if: always() && matrix.os == 'windows-latest' && matrix.goldbuild == 'ON'
         uses: actions/upload-artifact@v4
         with:
           name: 1fxmod-sof2plus-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
-          path: '1fxmod-sof2plus-windows-*.zip'
+          path: '1fxmod-sof2plus-gold-windows-*.zip'
 
-      - name: Upload (Linux)
-        if: always() && matrix.compiler == 'gcc'
+      - name: Upload (Linux; Gold)
+        if: always() && matrix.compiler == 'gcc' && matrix.goldbuild == 'ON'
         uses: actions/upload-artifact@v4
         with:
           name: 1fxmod-sof2plus-${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
-          path: ${{ matrix.os == 'debian-11' && '1fxmod-sof2plus-debian11-*.tar.gz' || '1fxmod-sof2plus-linux-*.tar.gz' }}
+          path: ${{ matrix.os == 'debian-11' && '1fxmod-sof2plus-gold-debian11-*.tar.gz' || '1fxmod-sof2plus-gold-linux-*.tar.gz' }}
 
   release:
     needs: build
