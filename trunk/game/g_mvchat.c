@@ -149,9 +149,9 @@ void mvchat_parseFiles()
     }
 
     // Allocate memory to store the .mvchat filenames.
-    mvchatFiles = trap_VM_LocalAlloc(mvchatCount * sizeof(char *));
+    mvchatFiles = G_Alloc(mvchatCount * sizeof(char *));
     for(i = 0; i < mvchatCount; i++){
-        mvchatFiles[i] = trap_VM_LocalAlloc(MAX_QPATH * sizeof(char));
+        mvchatFiles[i] = G_Alloc(MAX_QPATH * sizeof(char));
         memset(mvchatFiles[i], 0, MAX_QPATH * sizeof(char));
     }
 
@@ -239,7 +239,7 @@ void mvchat_parseFiles()
             // We're going to initialize this sound now.
             mvchatSound
                 = mvchatSounds[sNum]
-                = trap_VM_LocalAlloc(sizeof(mvchatSound_t));
+                = G_Alloc(sizeof(mvchatSound_t));
             mvchatSoundNumberCount++;
 
             // Zero-initialize the sounds pointer array with the
@@ -250,14 +250,14 @@ void mvchat_parseFiles()
             G_RemoveAdditionalCarets(sText);
 
             // Allocate some space for the text of this sound.
-            mvchatSound->text = trap_VM_LocalStringAlloc(sText);
+            mvchatSound->text = G_StringAlloc(sText);
 
             // Strip colors from the text.
             Q_CleanStr(sText);
 
             // Allocate some space for the clean text of this sound.
             // The clean text is used when listing sounds in the console.
-            mvchatSound->textClean = trap_VM_LocalStringAlloc(sText);
+            mvchatSound->textClean = G_StringAlloc(sText);
 
             // Mandatory info is now stored.
             // Iterate through the available languages to use for this sound.
@@ -287,10 +287,10 @@ void mvchat_parseFiles()
                         // Valid sound. Create an entry for this language.
                         // Initialize the sound language entry if necessary.
                         if(mvchatSound->sounds[x] == NULL){
-                            mvchatSound->sounds[x] = trap_VM_LocalAlloc(sizeof(mvchatSoundLang_t));
+                            mvchatSound->sounds[x] = G_Alloc(sizeof(mvchatSoundLang_t));
                         }
                         // Copy this sound.
-                        mvchatSound->sounds[x]->maleSound = trap_VM_LocalStringAlloc(sSound);
+                        mvchatSound->sounds[x]->maleSound = G_StringAlloc(sSound);
                         soundFound = qtrue;
 
                         // Check if this sound exists?
@@ -320,11 +320,11 @@ void mvchat_parseFiles()
                         // Valid sound. Create an entry for this language.
                         // Initialize the sound language entry if necessary.
                         if(mvchatSound->sounds[x] == NULL){
-                            mvchatSound->sounds[x] = trap_VM_LocalAlloc(sizeof(mvchatSoundLang_t));
+                            mvchatSound->sounds[x] = G_Alloc(sizeof(mvchatSoundLang_t));
                         }
 
                         // Copy this sound.
-                        mvchatSound->sounds[x]->femaleSound = trap_VM_LocalStringAlloc(sSound);
+                        mvchatSound->sounds[x]->femaleSound = G_StringAlloc(sSound);
                         soundFound = qtrue;
 
                         // Check if this sound exists?
@@ -384,6 +384,8 @@ void mvchat_parseFiles()
             // Advance to the next sound in this file.
             mvchatGroup = trap_GPG_GetNext(mvchatGroup);
         }
+
+        trap_GP_Delete(&mvchatFile); // Free the mvchat parsed file as well. This fixes a crash in Z_Malloc over continuous restarts.
     }
 
     // All files are parsed.

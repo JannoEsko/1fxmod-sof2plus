@@ -263,7 +263,7 @@ void QDECL Boe_adminLog( const char *command, const char *by, const char *to, ..
     char        string[1024] = "";
     int         len, i;
     va_list     argptr;
-    va_list     argptr2 = "";
+    va_list     argptr2;
     qtime_t     q;
     fileHandle_t    f;
     char        temp[1024] = "";

@@ -269,7 +269,7 @@ static qboolean BG_ParseAmmoStats(ammo_t ammoNum, void *group)
     ammo = &ammoData[ammoNum];
     memset(ammo, 0, sizeof(ammoData_t));
 
-    ammo->name = (char*)trap_VM_LocalStringAlloc ( ammoNames[ammoNum] );
+    ammo->name = (char*)G_StringAlloc ( ammoNames[ammoNum] );
     Q_strlwr ( ammo->name );
 
     // Get the scale of the gore for this bullet
@@ -380,7 +380,7 @@ static qboolean BG_ParseAttackStats ( int weaponNum, attackData_t* attack, void 
     if ( Q_stricmp ( tmpStr, "none" ) )
     {
         Q_strlwr ( tmpStr );
-        attack->melee = trap_VM_LocalStringAlloc ( tmpStr );
+        attack->melee = G_StringAlloc ( tmpStr );
     }
 
     trap_GPG_FindPairValue(attacksub, "name", "NONE", attack->name);
@@ -741,7 +741,7 @@ static TNoteTrack *BG_FindNoteTracks(void *group)
         trap_GPG_GetName(sub, name);
         if (Q_stricmp(name, "notetrack") == 0)
         {
-            current = (TNoteTrack *)trap_VM_LocalAlloc(sizeof(*current));
+            current = (TNoteTrack *)G_Alloc(sizeof(*current));
             memset(current, 0, sizeof(*current));
 
             // last character is automatically 0 cuz of the memset
@@ -799,7 +799,7 @@ static void BG_FindWeaponFrames(TAnimInfoWeapon *animInfo, int choice)
             // and extension
             trap_GPG_GetName ( group, temp );
             Q_strncpyz(name, COM_SkipPath(temp), sizeof(name));
-            COM_StripExtension ( name, temp );
+            COM_StripExtension ( name, temp, sizeof(temp) );
             if ( Q_stricmp ( temp, animInfo->mAnim[choice] ) == 0 )
             {
                 break;
@@ -871,7 +871,7 @@ static qboolean BG_ParseAnimGroup(weapon_t weapon, sqlite3 * db)
     while((rc = sqlite3_step(stmt)) != SQLITE_DONE){
         if(rc == SQLITE_ROW){
             // Allocate memory.
-            anim = (TAnimWeapon *)trap_VM_LocalAlloc(sizeof(*anim));
+            anim = (TAnimWeapon *)G_Alloc(sizeof(*anim));
             memset(anim, 0, sizeof(TAnimWeapon));
 
             // Parse base info.
@@ -898,7 +898,7 @@ static qboolean BG_ParseAnimGroup(weapon_t weapon, sqlite3 * db)
                 if(rc == SQLITE_ROW){
                     // Allocate memory.
                     info = (TAnimInfoWeapon *)
-                        trap_VM_LocalAlloc(sizeof(TAnimInfoWeapon));
+                        G_Alloc(sizeof(TAnimInfoWeapon));
                     memset(info, 0, sizeof(TAnimInfoWeapon));
 
                     // Get base info.
@@ -939,7 +939,7 @@ static qboolean BG_ParseAnimGroup(weapon_t weapon, sqlite3 * db)
                         strncpy(value, sqlite3_column_text(stmtInfo, 3),
                             sizeof(value));
                         info->mAnim[info->mNumChoices] =
-                            trap_VM_LocalAlloc(strlen(value)+1);
+                            G_Alloc(strlen(value)+1);
                         strncpy(info->mAnim[info->mNumChoices], value,
                             strlen(value));
 
@@ -954,7 +954,7 @@ static qboolean BG_ParseAnimGroup(weapon_t weapon, sqlite3 * db)
                             strncpy(value, sqlite3_column_text(stmtInfo, 3+k),
                                 sizeof(value));
                             info->mAnim[info->mNumChoices] =
-                                trap_VM_LocalAlloc(strlen(value)+1);
+                                G_Alloc(strlen(value)+1);
                             strncpy(info->mAnim[info->mNumChoices], value,
                                 strlen(value));
 
@@ -964,7 +964,7 @@ static qboolean BG_ParseAnimGroup(weapon_t weapon, sqlite3 * db)
                             strncpy(value, sqlite3_column_text(stmtInfo, 7+k),
                                 sizeof(value));
                             info->mAnim[info->mNumChoices] =
-                                trap_VM_LocalAlloc(strlen(value)+1);
+                                G_Alloc(strlen(value)+1);
                             strncpy(info->mAnim[info->mNumChoices], value,
                                 strlen(value));
 
@@ -978,7 +978,7 @@ static qboolean BG_ParseAnimGroup(weapon_t weapon, sqlite3 * db)
                                     sqlite3_column_text(stmtInfo, 18+k),
                                     sizeof(value));
                                 info->mTransition[info->mNumChoices] =
-                                    trap_VM_LocalAlloc(strlen(value)+1);
+                                    G_Alloc(strlen(value)+1);
                                 strncpy(info->mTransition[info->mNumChoices],
                                     value, strlen(value));
                             }
@@ -989,7 +989,7 @@ static qboolean BG_ParseAnimGroup(weapon_t weapon, sqlite3 * db)
                                     sqlite3_column_text(stmtInfo, 21+k),
                                     sizeof(value));
                                 info->mEnd[info->mNumChoices] =
-                                    trap_VM_LocalAlloc(strlen(value)+1);
+                                    G_Alloc(strlen(value)+1);
                                 strncpy(info->mEnd[info->mNumChoices], value,
                                     strlen(value));
                             }

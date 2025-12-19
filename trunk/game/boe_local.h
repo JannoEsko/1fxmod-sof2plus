@@ -37,8 +37,8 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #define MODNAME "1fx. Mod"
 #define MODNAME_COLORED "^71fx^1. ^3Mod^7"
 
-#define MODVERSION_MAJOR "0.82b"
-#define MODVERSION_PRE "0.82t"
+#define MODVERSION_MAJOR "0.83p"
+#define MODVERSION_PRE "0.83pt"
 
 // Boe!Man 10/13/15: Mod flavors.
 #ifndef _NIGHTLY

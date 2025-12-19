@@ -977,7 +977,11 @@ typedef struct
     int         sqlBackupTime;      // Boe!Man 5/27/13: The interval for backing up the in-memory databases to disk.
 
     qboolean        countryInitialized;     // Boe!Man 6/25/13: True if the country database is fully initialized. Protected by mutex.
+#ifdef _WIN32
+    HANDLE          countryInitLock;
+#elif defined __linux__
     pthread_mutex_t countryInitLock;        // Boe!Man 12/24/15: Mutex lock for the country database initialization.
+#endif
     qboolean        countryPostProcessed;   // Boe!Man 12/24/15: True when the post processing is finished after thread completion.
 
     int         customETHiderAmount[16];
@@ -1042,13 +1046,6 @@ char        *G_ColorizeMessage          ( char *broadcast );
 void        G_postExecuteAdminCommand   ( int funcNum, int idNum, gentity_t *adm );
 void QDECL  G_printInfoMessage          ( gentity_t *ent, const char *msg, ... );
 void QDECL  G_printInfoMessageToAll     ( const char *msg, ... );
-
-//
-// g_crash.c
-//
-
-void        enableCrashHandler      ( void );
-void        disableCrashHandler     ( void );
 
 //
 // g_items.c
@@ -1902,18 +1899,14 @@ void    trap_SnapVector( float *v );
 
 int         trap_CM_RegisterTerrain(const char *config);
 
-// Boe!Man 6/3/13: Dyanmic vm memory allocation.
-void        *trap_VM_LocalAlloc ( int size );
-void        *trap_VM_LocalAllocUnaligned ( int size );          // WARNING!!!! USE WITH CAUTION!!! BEWARE OF DOG!!!
-void        *trap_VM_LocalTempAlloc( int size );
-void        trap_VM_LocalTempFree( int size );                  // free must be in opposite order of allocation!
-const char  *trap_VM_LocalStringAlloc ( const char *source );
+
 
 // Gametype traps
 void        trap_GT_Init        ();
 void        trap_GT_RunFrame    ( int time );
 void        trap_GT_Start       ( int time );
 int         trap_GT_SendEvent   ( int event, int time, int arg0, int arg1, int arg2, int arg3, int arg4 );
+void* trap_Mem_Init(int size);
 
 void G_UpdateClientAntiLag  ( gentity_t* ent );
 void G_UndoAntiLag          ( void );

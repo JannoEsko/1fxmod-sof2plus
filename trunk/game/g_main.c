@@ -26,6 +26,9 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 
 #ifdef __linux__
 #include <netdb.h>
+#include <fcntl.h>
+
+#include <signal.h>
 #ifndef __USE_POSIX199309
 #include <asm/sigcontext.h>
 #endif // __USE_POSIX199309
@@ -817,7 +820,8 @@ This is the only way control passes into the module.
 This must be the very first function compiled into the .q3vm file
 ================
 */
-int vmMain( int command, int arg0, int arg1, int arg2, int arg3, int arg4, int arg5, int arg6, int arg7, int arg8, int arg9, int arg10, int arg11  )
+Q_EXPORT intptr_t vmMain(int command, intptr_t arg0, intptr_t arg1, intptr_t arg2, intptr_t arg3, intptr_t arg4, intptr_t arg5,
+    intptr_t arg6, intptr_t arg7, intptr_t arg8, intptr_t arg9, intptr_t arg10, intptr_t arg11)
 {
     switch ( command )
     {
@@ -828,23 +832,13 @@ int vmMain( int command, int arg0, int arg1, int arg2, int arg3, int arg4, int a
             G_ShutdownGhoul ( );
             return 0;
         case GAME_INIT:
-            #ifdef _DEV
-            // Boe!Man 10/11/15: Enable crash logging prior to initializing the game.
-            enableCrashHandler();
-            #endif // _DEV
-
             G_InitGame( arg0, arg1, arg2 );
             return 0;
         case GAME_SHUTDOWN:
             G_ShutdownGame( arg0 );
-
-            #ifdef _DEV
-            // Boe!Man 10/13/15: Cleanup after shutdown.
-            disableCrashHandler();
-            #endif // _DEV
             return 0;
         case GAME_CLIENT_CONNECT:
-            return (int)ClientConnect( arg0, (qboolean)arg1, (qboolean)arg2 );
+            return (intptr_t)ClientConnect( arg0, (qboolean)arg1, (qboolean)arg2 );
         case GAME_CLIENT_THINK:
             ClientThink( arg0 );
             return 0;
@@ -1534,6 +1528,8 @@ void G_InitGame( int levelTime, int randomSeed, int restart )
     #else
     Com_Printf("Platform: SoF2 - v1.00 (Full)\n");
     #endif // _GOLD, _DEMO or Full
+
+    G_InitMemory();
 
     // Boe!Man 3/14/14: Check if we can actually start the server.
     if(G_CheckAlive()){

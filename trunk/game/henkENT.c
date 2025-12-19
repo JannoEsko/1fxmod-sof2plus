@@ -104,7 +104,7 @@ qboolean G_LoadEntFile(void)
     }
 
     // Boe!Man 1/9/13: We allocate the buffer ourselves. This fixes a nasty crash within the Linux build.
-    entBuffer = (char *)trap_VM_LocalTempAlloc(len*sizeof(char));
+    entBuffer = (char *)G_TempAlloc(len*sizeof(char));
 #ifdef _DEBUG
     if(entBuffer){
         Com_Printf("Allocated %i bytes memory, available for entity file.\n", len*sizeof(char));
@@ -146,7 +146,7 @@ char *G_GetEntFileToken(void)
     /// make sure incoming data is valid
     if (!data){
         // Boe!Man 1/9/13: Free the buffer.
-        trap_VM_LocalTempFree(len*sizeof(char));
+        G_TempFree(len*sizeof(char));
         entBuffer = NULL;
         len = 0;
 #ifdef _DEBUG
@@ -160,7 +160,7 @@ char *G_GetEntFileToken(void)
         data = SkipWhitespace(entBuffer, &hasNewLines);
         if ( !data ){
             // Boe!Man 1/9/13: Free the buffer.
-            trap_VM_LocalTempFree(len*sizeof(char));
+            G_TempFree(len*sizeof(char));
             entBuffer = NULL;
             len = 0;
 #ifdef _DEBUG

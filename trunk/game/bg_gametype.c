@@ -54,10 +54,10 @@ static qboolean BG_ParseGametypePhotos ( int gametypeIndex, TGPGroup group )
     while ( photo )
     {
         trap_GPG_GetName ( photo, temp );
-        bg_gametypeData[gametypeIndex].photos[index].name = trap_VM_LocalStringAlloc ( temp );
+        bg_gametypeData[gametypeIndex].photos[index].name = G_StringAlloc ( temp );
 
         trap_GPG_FindPairValue ( photo, "displayname", "unknown", temp );
-        bg_gametypeData[gametypeIndex].photos[index].displayName = trap_VM_LocalStringAlloc ( temp );
+        bg_gametypeData[gametypeIndex].photos[index].displayName = G_StringAlloc ( temp );
 
         index++;
 
@@ -113,13 +113,13 @@ static qboolean BG_ParseGametypeInfo ( int gametypeIndex )
     {
         return qfalse;
     }
-    gametype->displayName = trap_VM_LocalStringAlloc ( temp );
+    gametype->displayName = G_StringAlloc ( temp );
 
     // Description
     trap_GPG_FindPairValue ( gtGroup, "description", "", temp );
     if ( temp[0] )
     {
-        gametype->description = trap_VM_LocalStringAlloc ( temp );
+        gametype->description = G_StringAlloc ( temp );
     }
 
     // Are pickups enabled?
@@ -164,7 +164,7 @@ static qboolean BG_ParseGametypeInfo ( int gametypeIndex )
     trap_GPG_FindPairValue ( gtGroup, "basegametype", "", temp );
     if ( temp[0] )
     {
-        gametype->basegametype = trap_VM_LocalStringAlloc ( temp );
+        gametype->basegametype = G_StringAlloc ( temp );
     }
     // Ryan
 
@@ -207,25 +207,25 @@ qboolean BG_BuildGametypeList ( void )
     // The gametype data for DM and TDM are added manually.
 
     // Deathmatch.
-    bg_gametypeData[bg_gametypeCount].displayName = trap_VM_LocalStringAlloc("Deathmatch");
+    bg_gametypeData[bg_gametypeCount].displayName = G_StringAlloc("Deathmatch");
     bg_gametypeData[bg_gametypeCount].pickupsDisabled = qfalse;
     bg_gametypeData[bg_gametypeCount].teams = qfalse;
     bg_gametypeData[bg_gametypeCount].showKills = qtrue;
     bg_gametypeData[bg_gametypeCount].respawnType = RT_NORMAL;
     bg_gametypeData[bg_gametypeCount].backpack = 25;
-    bg_gametypeData[bg_gametypeCount].script = trap_VM_LocalStringAlloc("");
-    bg_gametypeData[bg_gametypeCount].name = trap_VM_LocalStringAlloc("dm");
+    bg_gametypeData[bg_gametypeCount].script = G_StringAlloc("");
+    bg_gametypeData[bg_gametypeCount].name = G_StringAlloc("dm");
     bg_gametypeCount++;
 
     // Team Deathmatch.
-    bg_gametypeData[bg_gametypeCount].displayName = trap_VM_LocalStringAlloc("Team Deathmatch");
+    bg_gametypeData[bg_gametypeCount].displayName = G_StringAlloc("Team Deathmatch");
     bg_gametypeData[bg_gametypeCount].pickupsDisabled = qfalse;
     bg_gametypeData[bg_gametypeCount].teams = qtrue;
     bg_gametypeData[bg_gametypeCount].showKills = qtrue;
     bg_gametypeData[bg_gametypeCount].respawnType = RT_NORMAL;
     bg_gametypeData[bg_gametypeCount].backpack = 25;
-    bg_gametypeData[bg_gametypeCount].script = trap_VM_LocalStringAlloc("");
-    bg_gametypeData[bg_gametypeCount].name = trap_VM_LocalStringAlloc("tdm");
+    bg_gametypeData[bg_gametypeCount].script = G_StringAlloc("");
+    bg_gametypeData[bg_gametypeCount].name = G_StringAlloc("tdm");
     bg_gametypeCount++;
     #endif // _DEMO
 
@@ -244,12 +244,12 @@ qboolean BG_BuildGametypeList ( void )
         strcat(filename, fileptr );
 
         // Fill in what we know so far
-        bg_gametypeData[bg_gametypeCount].script = trap_VM_LocalStringAlloc ( filename );
+        bg_gametypeData[bg_gametypeCount].script = G_StringAlloc ( filename );
 
         // Kill the dot so we can use the filename as the short name
         s  = strchr ( fileptr, '.' );
         *s = '\0';
-        bg_gametypeData[bg_gametypeCount].name   = trap_VM_LocalStringAlloc ( fileptr );
+        bg_gametypeData[bg_gametypeCount].name   = G_StringAlloc ( fileptr );
 
         // TODO: Parse the gametype file
         BG_ParseGametypeInfo ( bg_gametypeCount++ );

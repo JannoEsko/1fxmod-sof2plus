@@ -470,7 +470,7 @@ char *G_NewString( const char *string )
     int     i,l;
 
     l = strlen(string) + 1;
-    newb = (char *)trap_VM_LocalAlloc( l );
+    newb = (char *)G_Alloc( l );
 
     new_p = newb;
 
@@ -1186,13 +1186,13 @@ void SP_worldspawn( void )
         G_SpawnString( "redteam", "", &text );
         if ( text && *text )
         {
-            level.gametypeTeam[TEAM_RED] = trap_VM_LocalStringAlloc ( text );
+            level.gametypeTeam[TEAM_RED] = G_StringAlloc ( text );
         }
 
         G_SpawnString( "blueteam", "", &text );
         if ( text && *text )
         {
-            level.gametypeTeam[TEAM_BLUE] = trap_VM_LocalStringAlloc ( text );
+            level.gametypeTeam[TEAM_BLUE] = G_StringAlloc ( text );
         }
 
         if ( !level.gametypeTeam[TEAM_RED]  ||

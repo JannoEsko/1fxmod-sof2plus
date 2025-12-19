@@ -1072,7 +1072,7 @@ gentity_t* G_FireProjectile ( gentity_t *ent, weapon_t weapon, attackType_t atta
             dir[2] += flrand(-0.1 * inaccuracy, 0.1 * inaccuracy);
         }
 
-        missile = G_CreateMissile( muzzlePoint, dir, attackDat->rV.velocity, minimum(projectileLifetime, 10000), ent, attack );
+        missile = G_CreateMissile( muzzlePoint, dir, attackDat->rV.velocity, min(projectileLifetime, 10000), ent, attack );
 
         missile->classname = ammoData[attackDat->ammoIndex].name;
         missile->s.weapon = weapon;

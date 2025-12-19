@@ -27,7 +27,12 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 #endif
 
 // Country memory database
+#ifdef _WIN32
+HANDLE              countryInit;
+#else
 pthread_t           countryInit; // Boe!Man 6/25/13: The reference to the thread.
+#endif
+
 sqlite3             *countryDb;
 
 int process_ddl_row(void * pData, int nColumns,
@@ -68,9 +73,17 @@ qboolean G_isCountryDatabaseInitialized()
     qboolean result;
     int i;
 
+#ifdef _WIN32
+    WaitForSingleObject(level.countryInitLock, INFINITE);
+    result = level.countryInitialized;
+    ReleaseMutex(level.countryInitLock);
+#elif defined __linux__
     pthread_mutex_lock(&level.countryInitLock);
     result = level.countryInitialized;
     pthread_mutex_unlock(&level.countryInitLock);
+#endif
+
+    
 
     if(!level.countryPostProcessed && result){
         // Boe!Man 6/25/13: Parse the clients their country now.
@@ -92,7 +105,14 @@ qboolean G_isCountryDatabaseInitialized()
     return result;
 }
 
-void *Thread_countryInit(){
+static 
+#ifdef _WIN32
+unsigned int WINAPI Thread_countryInit(LPVOID arg) 
+#elif defined __linux__
+void* Thread_countryInit(void* data) 
+#endif
+
+{
     int         rc, i;
     sqlite3     *db;
     char        fsGame[MAX_QPATH];
@@ -133,21 +153,43 @@ void *Thread_countryInit(){
     sqlite3_exec(countryDb, "COMMIT", NULL, NULL, NULL);
 
     // Boe!Man 6/25/13: The game can use the country system now..
+#ifdef _WIN32
+    WaitForSingleObject(level.countryInitLock, INFINITE);
+    level.countryInitialized = qtrue;
+    ReleaseMutex(level.countryInitLock);
+#elif defined __linux__
     pthread_mutex_lock(&level.countryInitLock);
     level.countryInitialized = qtrue;
     pthread_mutex_unlock(&level.countryInitLock);
+#endif
+    
 }
 
 //Henk 12/10/12 -> Copy country database to an in memory database.
 // Select query from disk takes ~80ms, from memory 0ms.
 void LoadCountries(){
     // Boe!Man 6/25/13: Initialize the in-memory database from the main thread.
+
+#ifdef _WIN32
+    level.countryInitLock = CreateMutex(NULL, FALSE, NULL);
+#elif defined __linux__
+    pthread_mutex_init(&level.countryInitLock, NULL);
+#endif
+
     countryDb = NULL;
 
     sqlite3_open_v2(":memory:", &countryDb, SQLITE_OPEN_READWRITE, NULL);
 
     // Boe!Man 6/25/13: Try to init the thread.
-    if(pthread_create(&countryInit, NULL, &Thread_countryInit, NULL) != 0){
+
+#ifdef _WIN32
+    countryInit = CreateThread(NULL, 0, &Thread_countryInit, NULL, 0, NULL);
+    if (!countryInit) {
+#elif defined __linux__
+    if (pthread_create(&countryInit, NULL, &Thread_countryInit, NULL) != 0) {
+#endif
+
+    
         #ifdef _DEBUG
         Com_Error(ERR_FATAL_NOLOG, "Couldn't create Country initialization thread.");
         #else
@@ -160,7 +202,15 @@ void LoadCountries(){
 }
 
 void UnloadCountries(){
+
+#ifdef _WIN32
+    CloseHandle(countryInit);
+    CloseHandle(level.countryInitLock);
+#elif defined __linux__
     pthread_join(countryInit, NULL); // Boe!Man 6/25/13: Wait for the thread to exit.
+    pthread_mutex_destroy(&level.countryInitLock);
+#endif
+    
 
     sqlite3_exec(countryDb, "DETACH DATABASE country", NULL, NULL, NULL);
     sqlite3_close(countryDb);

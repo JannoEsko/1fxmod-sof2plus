@@ -157,7 +157,7 @@ int adm_addAdmin(int argNum, gentity_t *adm, qboolean shortCmd)
     else if (strstr(command, "!aa") || strstr(command, "addad")){
         adm_addAdmin_f(argNum, adm, shortCmd, 3, "addadmin");
     }
-    else{ // Must be add S-Admin..
+    else if (strstr(command, "!as") || strstr(command, "addsad")) { // Must be add S-Admin..
         adm_addAdmin_f(argNum, adm, shortCmd, 4, "addsadmin");
     }
 

@@ -228,15 +228,15 @@ TInventoryTemplate *BG_ParseInventory ( TGPGroup group )
         // If the group name isnt item then 'Item' then its not an inventory item
         if ( Q_stricmp ( temp, "Item") == 0)
         {
-            inv = (TInventoryTemplate *)trap_VM_LocalAlloc ( sizeof(*inv));
+            inv = (TInventoryTemplate *)G_Alloc ( sizeof(*inv));
 
             // Name of the item
             trap_GPG_FindPairValue ( subGroup, "Name||Name1", "", temp );
-            inv->mName = trap_VM_LocalStringAlloc ( temp );
+            inv->mName = G_StringAlloc ( temp );
 
             // Bolt for the item
             trap_GPG_FindPairValue ( subGroup, "Bolt", "", temp );
-            inv->mBolt = trap_VM_LocalStringAlloc ( temp );
+            inv->mBolt = G_StringAlloc ( temp );
 
             trap_GPG_FindPairValue ( subGroup, "mp_onback||onback", "no", temp );
             if ( !Q_stricmp ( temp, "yes" ) )
@@ -281,8 +281,8 @@ TSkinTemplate *BG_ParseSkins( TCharacterTemplate* character, TGPGroup group )
     trap_GPG_FindPairValue ( group, "SkinFile", "", temp );
     if ( temp[0] )
     {
-        skin = (TSkinTemplate *) trap_VM_LocalAlloc ( sizeof(*skin) );
-        skin->mSkin = trap_VM_LocalStringAlloc ( temp );
+        skin = (TSkinTemplate *) G_Alloc ( sizeof(*skin) );
+        skin->mSkin = G_StringAlloc ( temp );
         skin->mNext = character->mSkins;
         character->mSkins = skin;
     }
@@ -298,8 +298,8 @@ TSkinTemplate *BG_ParseSkins( TCharacterTemplate* character, TGPGroup group )
         {
             // Allocate memory for the skin & grab the skin filename
             trap_GPG_FindPairValue ( subGroup, "File", "", temp );
-            skin = (TSkinTemplate *) trap_VM_LocalAlloc ( sizeof(*skin) );
-            skin->mSkin = trap_VM_LocalStringAlloc ( temp );
+            skin = (TSkinTemplate *) G_Alloc ( sizeof(*skin) );
+            skin->mSkin = G_StringAlloc ( temp );
 
 #ifdef SPECIAL_PRE_CACHE
             f = 0;
@@ -338,18 +338,18 @@ TSkinTemplate *BG_ParseSkins( TCharacterTemplate* character, TGPGroup group )
                 trap_GPG_FindPairValue ( subGroup, "mp_identity", "", temp );
                 if ( !temp[0] )
                 {
-                    identity->mName = trap_VM_LocalStringAlloc ( va("%s/%s", character->mName, skin->mSkin ) );
+                    identity->mName = G_StringAlloc ( va("%s/%s", character->mName, skin->mSkin ) );
                 }
                 else
                 {
-                    identity->mName = trap_VM_LocalStringAlloc ( temp );
+                    identity->mName = G_StringAlloc ( temp );
                 }
 
                 // Team name?
                 trap_GPG_FindPairValue ( subGroup, "mp_team", "", temp );
                 if ( temp[0] )
                 {
-                    identity->mTeam = trap_VM_LocalStringAlloc ( temp );
+                    identity->mTeam = G_StringAlloc ( temp );
                 }
                 else
                 {
@@ -393,13 +393,13 @@ TModelSounds *BG_ParseModelSounds( TGPGroup group )
     while(pairs)
     {
         // Allocate memory for the sounds
-        sounds = (TModelSounds*) trap_VM_LocalAlloc ( sizeof(*sounds) );
+        sounds = (TModelSounds*) G_Alloc ( sizeof(*sounds) );
         sounds->mNext = top;
         top = sounds;
 
         // Grab the sounds name
         trap_GPV_GetName ( pairs, temp );
-        sounds->mName = trap_VM_LocalStringAlloc ( temp );
+        sounds->mName = G_StringAlloc ( temp );
 
         // Start with no sounds
         sounds->mCount = 0;
@@ -416,7 +416,7 @@ TModelSounds *BG_ParseModelSounds( TGPGroup group )
                 // Add the sound to the list
                 trap_GPV_GetName ( list, temp );
                 sounds->mCount++;
-                sounds->mSounds[sounds->mCount] = trap_VM_LocalStringAlloc ( temp );
+                sounds->mSounds[sounds->mCount] = G_StringAlloc ( temp );
 
                 list = trap_GPV_GetNext ( list );
             }
@@ -475,19 +475,19 @@ qboolean BG_ParseItemFile ( void )
             }
 
             // Allocate the item template and link it up to the item list
-            item = (TItemTemplate *) trap_VM_LocalAlloc ( sizeof(*item) );
+            item = (TItemTemplate *) G_Alloc ( sizeof(*item) );
             item->mNext   = bg_itemTemplates;
             bg_itemTemplates = item;
 
             // Name of the item
             trap_GPG_FindPairValue ( subGroup, "Name", "", temp );
-            item->mName = trap_VM_LocalStringAlloc ( temp );
+            item->mName = G_StringAlloc ( temp );
 
             // Model for the item
             trap_GPG_FindPairValue ( subGroup, "Model", "", temp );
             if ( temp[0] )
             {
-                item->mModel = trap_VM_LocalStringAlloc ( temp );
+                item->mModel = G_StringAlloc ( temp );
             }
 
             pairs = (TGPValue *)trap_GPG_GetPairs ( subGroup );
@@ -499,25 +499,25 @@ qboolean BG_ParseItemFile ( void )
                 if ( Q_stricmpn ( temp, "offsurf", 7) == 0)
                 {
                     // Allocate the surface structure and link it into the list
-                    surf = (TSurfaceList *) trap_VM_LocalAlloc ( sizeof(*surf) );
+                    surf = (TSurfaceList *) G_Alloc ( sizeof(*surf) );
                     surf->mNext = item->mOffList;
                     item->mOffList = surf;
 
                     // Name of the surface to turn off
                     trap_GPV_GetTopValue ( pairs, temp );
-                    surf->mName = trap_VM_LocalStringAlloc ( temp );
+                    surf->mName = G_StringAlloc ( temp );
                 }
                 // Surface on?
                 else if ( Q_stricmpn( temp, "onsurf", 6) == 0)
                 {
                     // Allocate the surface structure and link it into the list
-                    surf = (TSurfaceList *) trap_VM_LocalAlloc(sizeof(*surf));
+                    surf = (TSurfaceList *) G_Alloc(sizeof(*surf));
                     surf->mNext = item->mOnList;
                     item->mOnList = surf;
 
                     // Name of the surface to turn off
                     trap_GPV_GetTopValue ( pairs, temp );
-                    surf->mName = trap_VM_LocalStringAlloc ( temp );
+                    surf->mName = G_StringAlloc ( temp );
                 }
 
                 // Next pairs
@@ -725,14 +725,14 @@ qboolean BG_ParseNPCFiles ( void )
                 trap_GPG_FindPairValue ( subGroup, "ParentTemplate", "", temp );
                 if ( temp[0] )
                 {
-                    currentParent = trap_VM_LocalStringAlloc ( temp );
+                    currentParent = G_StringAlloc ( temp );
                 }
             }
             // A new character template
             else if ( Q_stricmp( temp, "CharacterTemplate") == 0)
             {
                 // Allocate the new template and link it into the global list.
-                newTemplate = (TCharacterTemplate *)trap_VM_LocalAlloc (sizeof(*newTemplate));
+                newTemplate = (TCharacterTemplate *)G_Alloc (sizeof(*newTemplate));
                 newTemplate->mNext = bg_characterTemplates;
                 bg_characterTemplates = newTemplate;
 
@@ -751,21 +751,21 @@ qboolean BG_ParseNPCFiles ( void )
                 trap_GPG_FindPairValue ( subGroup, "Name", "", temp );
                 if ( temp[0] )
                 {
-                    newTemplate->mName = trap_VM_LocalStringAlloc ( temp );
+                    newTemplate->mName = G_StringAlloc ( temp );
                 }
 
                 // Template formal name
                 trap_GPG_FindPairValue ( subGroup, "FormalName", "", temp );
                 if ( temp[0] )
                 {
-                    newTemplate->mFormalName = trap_VM_LocalStringAlloc ( temp );
+                    newTemplate->mFormalName = G_StringAlloc ( temp );
                 }
 
                 // Template model
                 trap_GPG_FindPairValue ( subGroup, "Model", "", temp );
                 if ( temp[0] )
                 {
-                    newTemplate->mModel = trap_VM_LocalStringAlloc ( temp );
+                    newTemplate->mModel = G_StringAlloc ( temp );
                 }
 
                 // Use the current parent
@@ -1463,7 +1463,7 @@ void BG_SetAvailableOutfitting ( const char* available )
     }
 
     // IF the availability has changed force a reload of the outfitting groups
-    if ( Q_strncmp ( available, bg_availableOutfitting, minimum(sizeof(bg_availableOutfitting),len) ) )
+    if ( Q_strncmp ( available, bg_availableOutfitting, min(sizeof(bg_availableOutfitting),len) ) )
     {
         bg_outfittingCount = 0;
     }

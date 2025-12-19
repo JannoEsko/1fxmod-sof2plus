@@ -27,10 +27,10 @@ along with this program; if not, see <http://www.gnu.org/licenses/>.
 // this file is only included when building a dll
 // g_syscalls.asm is included instead when building a qvm
 
-static int (QDECL *engineSyscall)( int arg, ... ) = (int (QDECL *)( int, ...))-1;
+static intptr_t (QDECL *engineSyscall)(intptr_t arg, ... ) = (intptr_t (QDECL *)(intptr_t, ...))-1;
 
 
-void dllEntry( int (QDECL *syscallptr)( int arg,... ) ) {
+Q_EXPORT void dllEntry(intptr_t (QDECL *syscallptr)(intptr_t arg,... ) ) {
     engineSyscall = syscallptr;
 }
 
@@ -132,7 +132,7 @@ void trap_GetConfigstring( int num, char *buffer, int bufferSize ) {
 
 void trap_GetUserinfo( int num, char *buffer, int bufferSize ) {
     char        buf2[MAX_INFO_STRING];
-    qboolean    found;
+    qboolean    found = qfalse;
     int         i;
 
     engineSyscall( G_GET_USERINFO, num, buffer, bufferSize );
@@ -1100,32 +1100,6 @@ void trap_GetWorldBounds ( vec3_t mins, vec3_t maxs )
     engineSyscall ( G_GET_WORLD_BOUNDS, mins, maxs );
 }
 
-// Boe!Man 6/3/13: Dyanmic vm memory allocation.
-void *trap_VM_LocalAlloc ( int size )
-{
-    return (void *)engineSyscall ( G_VM_LOCALALLOC, size );
-}
-
-void *trap_VM_LocalAllocUnaligned ( int size )
-{
-    return (void *)engineSyscall ( G_VM_LOCALALLOCUNALIGNED, size );
-}
-
-void *trap_VM_LocalTempAlloc( int size )
-{
-    return (void *)engineSyscall ( G_VM_LOCALTEMPALLOC, size );
-}
-
-void trap_VM_LocalTempFree( int size )
-{
-    engineSyscall ( G_VM_LOCALTEMPFREE, size );
-}
-
-const char *trap_VM_LocalStringAlloc ( const char *source )
-{
-    return (const char *)engineSyscall ( G_VM_LOCALSTRINGALLOC, source );
-}
-
 void trap_GT_Init ( )
 {
     gtCall ( GAMETYPE_INIT, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1);
@@ -1144,4 +1118,9 @@ void trap_GT_Start ( int time )
 int trap_GT_SendEvent ( int event, int time, int arg0, int arg1, int arg2, int arg3, int arg4 )
 {
     return gtCall ( GAMETYPE_EVENT, event, time, arg0, arg1, arg2, arg3, arg4, -1, -1, -1, -1, -1);
+}
+
+void* trap_Mem_Init(int size)
+{
+    return (void*)engineSyscall(G_MEM_INIT, size);
 }

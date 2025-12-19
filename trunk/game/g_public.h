@@ -490,6 +490,10 @@ typedef enum {
     G_GT_START,
     G_GT_SENDEVENT,
 
+    // Custom traps (SoF2Plus)
+    G_REMOVECOMMAND = 1001,
+    G_MEM_INIT
+
 } gameImport_t;
 
 
