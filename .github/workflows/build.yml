@@ -332,14 +332,14 @@ jobs:
         if: always() && matrix.os == 'windows-latest' && matrix.goldbuild == 'ON'
         uses: actions/upload-artifact@v4
         with:
-          name: 1fxmod-sof2plus-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
+          name: 1fxmod-sof2plus-gold-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
           path: '1fxmod-sof2plus-gold-windows-*.zip'
 
       - name: Upload (Linux; Gold)
         if: always() && matrix.compiler == 'gcc' && matrix.goldbuild == 'ON'
         uses: actions/upload-artifact@v4
         with:
-          name: 1fxmod-sof2plus-${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
+          name: 1fxmod-sof2plus-gold-${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
           path: ${{ matrix.os == 'debian-11' && '1fxmod-sof2plus-gold-debian11-*.tar.gz' || '1fxmod-sof2plus-gold-linux-*.tar.gz' }}
 
   release:
