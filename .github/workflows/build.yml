@@ -308,7 +308,7 @@ jobs:
           name: 1fxmod-sof2plus-silver-${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
           path: ${{ matrix.os == 'debian-11' && '1fxmod-sof2plus-silver-debian11-*.tar.gz' || '1fxmod-sof2plus-silver-linux-*.tar.gz' }}
           
-          asdf
+
       - name: Archive (Ubuntu; Gold)
         if: always() && (matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04-arm') && matrix.goldbuild == 'ON'
         run: |
