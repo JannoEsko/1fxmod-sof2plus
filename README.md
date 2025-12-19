@@ -7,6 +7,7 @@ Mainly, those include:
 * Adding x86_64 support
 * Introducing CMake to build the engine
 * Changing local game memory to be like sof2plus-game (VM_*Alloc routines)
+* Use Windows thread functions instead of pthreads on Windows builds
 
 Unfortunately thanks to this, DEMO builds are not a part of CMake and the changes would also prevent running it.
 
@@ -17,6 +18,33 @@ There are 2 minor fixes included:
 * Add missing GP_Delete in mvchats parsing
 
 Rest of the mod is kept original.
+
+### Building the mod with CMake
+
+CMake allows the builds to be easy. The CMake script has the following options defined:
+| Option | Default value | Comment |
+|:--------------------:|:-----------------:|:---------:|
+| `FORCE_32BIT` | `OFF` | Builds the mod as x86. As you're nevertheless running sof2plus-engine, it's better to run the mod in x86_64 |
+| `BUILD_GOLD` | `OFF` | Defines which mod version is being built - silver or gold. When running a multiprotocol game, it won't matter much. | 
+| `BUILD_DEV` | `OFF` | Defines whether to build the mod with _DEV preprocessor flags | 
+| `BUILD_PRE` | `OFF` | Defines whether to build the mod with _PRE preprocessor flags | 
+| `BUILD_3DSERVER` | `OFF` | Defines whether to build the mod with _3DServer preprocessor flags (e.g. deadmonkeys etc) | 
+| `BUILD_NIGHTLY` | `OFF` | Defines whether to build the mod with _NIGHTLY preprocessor flags | 
+
+
+CMake command to invoke:
+```
+cmake -S . -B {your-preferred-folder} -DCMAKE_BUILD_TYPE={release-type} {additional-options}
+```
+Example build - Release, 32bit, gold:
+```
+cmake -S . -B build_x86_release_gold -DCMAKE_BUILD_TYPE=RELEASE -DFORCE_32BIT=ON -DBUILD_GOLD=ON
+```
+
+Example build - Debug, 64bit, silver + 3DServer:
+```
+cmake -S . -B build_x86_64_debug_silver -DCMAKE_BUILD_TYPE=DEBUG -DBUILD_3DSERVER=ON
+```
 
 --
 
@@ -81,6 +109,7 @@ with MSVC, but please bear in mind that it is likely to be broken. Any
 contributions for better MSVC support are very welcome.
 
 #### SoF2 v1.00 on Linux
+##### NB - see above, this is not valid with this fork. SoF2Plus solves the issues we had with original sof2ded
 Scattered throughout the source code you will find multiple comments regarding
 SoF2 v1.00 on Linux. The *sof2ded* binary released by Raven Software way back in
 2002 is statically linked, which complicates matters when trying to run (let
@@ -122,6 +151,7 @@ have incorporated all game type code into a single *1fx_gt.c* file and don't
 load any additional game type files anymore.
 
 #### Compiling the game module
+##### NB - see above. Builds are done via CMake
 1fx. Mod has been supporting more than one operating system since 0.70, and more
 than one game version since version 0.80. To support compiling for all these
 individual versions and operating systems we created a shell script that allowed
