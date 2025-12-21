@@ -21,142 +21,255 @@ jobs:
             arch: x86_64
             build_type: Release
             goldbuild: OFF
+            demobuild: OFF
           - os: ubuntu-latest
             compiler: gcc
             arch: x86_64
             build_type: Debug
             goldbuild: OFF
+            demobuild: OFF
           - os: ubuntu-latest
             compiler: gcc
             arch: x86
             build_type: Release
             goldbuild: OFF
+            demobuild: OFF
           - os: ubuntu-latest
             compiler: gcc
             arch: x86
             build_type: Debug
             goldbuild: OFF
+            demobuild: OFF
           - os: windows-latest
             compiler: mingw
             arch: x86_64
             build_type: Release
             goldbuild: OFF
+            demobuild: OFF
           - os: windows-latest
             compiler: mingw
             arch: x86_64
             build_type: Debug
             goldbuild: OFF
+            demobuild: OFF
           - os: windows-latest
             compiler: mingw
             arch: x86
             build_type: Release
             goldbuild: OFF
+            demobuild: OFF
           - os: windows-latest
             compiler: mingw
             arch: x86
             build_type: Debug
             goldbuild: OFF
+            demobuild: OFF
           - os: debian-11
             compiler: gcc
             arch: x86_64
             build_type: Release
             goldbuild: OFF
+            demobuild: OFF
           - os: debian-11
             compiler: gcc
             arch: x86_64
             build_type: Debug
             goldbuild: OFF
+            demobuild: OFF
           - os: debian-11
             compiler: gcc
             arch: x86
             build_type: Release
             goldbuild: OFF
+            demobuild: OFF
           - os: debian-11
             compiler: gcc
             arch: x86
             build_type: Debug
             goldbuild: OFF
+            demobuild: OFF
           - os: ubuntu-24.04-arm
             compiler: gcc
             arch: arm64
             build_type: Debug
             goldbuild: OFF
+            demobuild: OFF
           - os: ubuntu-24.04-arm
             compiler: gcc
             arch: arm64
             build_type: Release
             goldbuild: OFF
+            demobuild: OFF
             
           - os: ubuntu-latest
             compiler: gcc
             arch: x86_64
             build_type: Release
             goldbuild: ON
+            demobuild: OFF
           - os: ubuntu-latest
             compiler: gcc
             arch: x86_64
             build_type: Debug
             goldbuild: ON
+            demobuild: OFF
           - os: ubuntu-latest
             compiler: gcc
             arch: x86
             build_type: Release
             goldbuild: ON
+            demobuild: OFF
           - os: ubuntu-latest
             compiler: gcc
             arch: x86
             build_type: Debug
             goldbuild: ON
+            demobuild: OFF
           - os: windows-latest
             compiler: mingw
             arch: x86_64
             build_type: Release
             goldbuild: ON
+            demobuild: OFF
           - os: windows-latest
             compiler: mingw
             arch: x86_64
             build_type: Debug
             goldbuild: ON
+            demobuild: OFF
           - os: windows-latest
             compiler: mingw
             arch: x86
             build_type: Release
             goldbuild: ON
+            demobuild: OFF
           - os: windows-latest
             compiler: mingw
             arch: x86
             build_type: Debug
             goldbuild: ON
+            demobuild: OFF
           - os: debian-11
             compiler: gcc
             arch: x86_64
             build_type: Release
             goldbuild: ON
+            demobuild: OFF
           - os: debian-11
             compiler: gcc
             arch: x86_64
             build_type: Debug
             goldbuild: ON
+            demobuild: OFF
           - os: debian-11
             compiler: gcc
             arch: x86
             build_type: Release
             goldbuild: ON
+            demobuild: OFF
           - os: debian-11
             compiler: gcc
             arch: x86
             build_type: Debug
             goldbuild: ON
+            demobuild: OFF
           - os: ubuntu-24.04-arm
             compiler: gcc
             arch: arm64
             build_type: Debug
             goldbuild: ON
+            demobuild: OFF
           - os: ubuntu-24.04-arm
             compiler: gcc
             arch: arm64
             build_type: Release
             goldbuild: ON
+            demobuild: OFF
+            
+          - os: ubuntu-latest
+            compiler: gcc
+            arch: x86_64
+            build_type: Release
+            goldbuild: OFF
+            demobuild: ON
+          - os: ubuntu-latest
+            compiler: gcc
+            arch: x86_64
+            build_type: Debug
+            goldbuild: OFF
+            demobuild: ON
+          - os: ubuntu-latest
+            compiler: gcc
+            arch: x86
+            build_type: Release
+            goldbuild: OFF
+            demobuild: ON
+          - os: ubuntu-latest
+            compiler: gcc
+            arch: x86
+            build_type: Debug
+            goldbuild: OFF
+            demobuild: ON
+          - os: windows-latest
+            compiler: mingw
+            arch: x86_64
+            build_type: Release
+            goldbuild: OFF
+            demobuild: ON
+          - os: windows-latest
+            compiler: mingw
+            arch: x86_64
+            build_type: Debug
+            goldbuild: OFF
+            demobuild: ON
+          - os: windows-latest
+            compiler: mingw
+            arch: x86
+            build_type: Release
+            goldbuild: OFF
+            demobuild: ON
+          - os: windows-latest
+            compiler: mingw
+            arch: x86
+            build_type: Debug
+            goldbuild: OFF
+            demobuild: ON
+          - os: debian-11
+            compiler: gcc
+            arch: x86_64
+            build_type: Release
+            goldbuild: OFF
+            demobuild: ON
+          - os: debian-11
+            compiler: gcc
+            arch: x86_64
+            build_type: Debug
+            goldbuild: OFF
+            demobuild: ON
+          - os: debian-11
+            compiler: gcc
+            arch: x86
+            build_type: Release
+            goldbuild: OFF
+            demobuild: ON
+          - os: debian-11
+            compiler: gcc
+            arch: x86
+            build_type: Debug
+            goldbuild: OFF
+            demobuild: ON
+          - os: ubuntu-24.04-arm
+            compiler: gcc
+            arch: arm64
+            build_type: Debug
+            goldbuild: OFF
+            demobuild: ON
+          - os: ubuntu-24.04-arm
+            compiler: gcc
+            arch: arm64
+            build_type: Release
+            goldbuild: OFF
+            demobuild: ON
 
     runs-on: ${{ matrix.os == 'debian-11' && 'ubuntu-latest' || matrix.os }}
     container: ${{ matrix.os == 'debian-11' && 'debian:11' || '' }}
@@ -276,38 +389,73 @@ jobs:
           find build -name "*.so" -exec cp {} artifacts/1fx/ \; 2>/dev/null || true
 
       - name: Archive (Ubuntu; Silver)
-        if: always() && (matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04-arm') && matrix.goldbuild == 'OFF'
+        if: always() && (matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04-arm') && matrix.goldbuild == 'OFF' && matrix.demobuild == 'OFF'
         run: |
           cd artifacts
           tar -czf "../1fxmod-sof2plus-silver-linux-${{ matrix.arch }}-${{ matrix.build_type }}-gcc.tar.gz" 1fx
 
       - name: Archive (Debian 11; Silver)
-        if: always() && matrix.os == 'debian-11' && matrix.goldbuild == 'OFF'
+        if: always() && matrix.os == 'debian-11' && matrix.goldbuild == 'OFF' && matrix.demobuild == 'OFF'
         run: |
           cd artifacts
           tar -czf "../1fxmod-sof2plus-silver-debian11-${{ matrix.arch }}-${{ matrix.build_type }}-gcc.tar.gz" 1fx
 
       - name: Archive (Windows; Silver)
-        if: always() && matrix.os == 'windows-latest' && matrix.goldbuild == 'OFF'
+        if: always() && matrix.os == 'windows-latest' && matrix.goldbuild == 'OFF' && matrix.demobuild == 'OFF'
         shell: pwsh
         run: |
           cd artifacts
           Compress-Archive -Path 1fx -DestinationPath "../1fxmod-sof2plus-silver-windows-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}.zip" -Force
 
       - name: Upload (Windows; Silver)
-        if: always() && matrix.os == 'windows-latest' && matrix.goldbuild == 'OFF'
+        if: always() && matrix.os == 'windows-latest' && matrix.goldbuild == 'OFF' && matrix.demobuild == 'OFF'
         uses: actions/upload-artifact@v4
         with:
           name: 1fxmod-sof2plus-silver-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
           path: '1fxmod-sof2plus-silver-windows-*.zip'
 
       - name: Upload (Linux; Silver)
-        if: always() && matrix.compiler == 'gcc' && matrix.goldbuild == 'OFF'
+        if: always() && matrix.compiler == 'gcc' && matrix.goldbuild == 'OFF' && matrix.demobuild == 'OFF'
         uses: actions/upload-artifact@v4
         with:
           name: 1fxmod-sof2plus-silver-${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
           path: ${{ matrix.os == 'debian-11' && '1fxmod-sof2plus-silver-debian11-*.tar.gz' || '1fxmod-sof2plus-silver-linux-*.tar.gz' }}
           
+
+      - name: Archive (Ubuntu; Demo)
+        if: always() && (matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04-arm') && matrix.goldbuild == 'OFF' && matrix.demobuild == 'ON'
+        run: |
+          cd artifacts
+          tar -czf "../1fxmod-sof2plus-demo-linux-${{ matrix.arch }}-${{ matrix.build_type }}-gcc.tar.gz" 1fx
+
+      - name: Archive (Debian 11; Demo)
+        if: always() && matrix.os == 'debian-11' && matrix.goldbuild == 'OFF' && matrix.demobuild == 'ON'
+        run: |
+          cd artifacts
+          tar -czf "../1fxmod-sof2plus-demo-debian11-${{ matrix.arch }}-${{ matrix.build_type }}-gcc.tar.gz" 1fx
+
+      - name: Archive (Windows; Demo)
+        if: always() && matrix.os == 'windows-latest' && matrix.goldbuild == 'OFF' && matrix.demobuild == 'ON'
+        shell: pwsh
+        run: |
+          cd artifacts
+          Compress-Archive -Path 1fx -DestinationPath "../1fxmod-sof2plus-demo-windows-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}.zip" -Force
+
+      - name: Upload (Windows; Demo)
+        if: always() && matrix.os == 'windows-latest' && matrix.goldbuild == 'OFF' && matrix.demobuild == 'ON'
+        uses: actions/upload-artifact@v4
+        with:
+          name: 1fxmod-sof2plus-demo-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
+          path: '1fxmod-sof2plus-demo-windows-*.zip'
+
+      - name: Upload (Linux; Demo)
+        if: always() && matrix.compiler == 'gcc' && matrix.goldbuild == 'OFF' && matrix.demobuild == 'ON'
+        uses: actions/upload-artifact@v4
+        with:
+          name: 1fxmod-sof2plus-demo-${{ matrix.os }}-${{ matrix.arch }}-${{ matrix.build_type }}-${{ matrix.compiler }}
+          path: ${{ matrix.os == 'debian-11' && '1fxmod-sof2plus-demo-debian11-*.tar.gz' || '1fxmod-sof2plus-demo-linux-*.tar.gz' }}
+          
+
 
       - name: Archive (Ubuntu; Gold)
         if: always() && (matrix.os == 'ubuntu-latest' || matrix.os == 'ubuntu-24.04-arm') && matrix.goldbuild == 'ON'

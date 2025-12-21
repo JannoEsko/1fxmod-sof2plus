@@ -122,11 +122,11 @@ G_TraceBullet
 Runs a trace for a fired bullet
 ===============
 */
-#ifndef _DEMO
+//#ifndef _DEMO
 void G_TraceBullet ( weapon_t weapon, trace_t* tr, G2Trace_t G2Trace, vec3_t start, vec3_t end, int passent, int mask, qboolean detailed )
-#else
-void G_TraceBullet(weapon_t weapon, trace_t* tr, vec3_t start, vec3_t end, int passent, int mask, qboolean detailed)
-#endif // not _DEMO
+//#else
+//void G_TraceBullet(weapon_t weapon, trace_t* tr, vec3_t start, vec3_t end, int passent, int mask, qboolean detailed)
+//#endif // not _DEMO
 {
     #ifdef _DEMO
     int         i;
@@ -146,12 +146,12 @@ void G_TraceBullet(weapon_t weapon, trace_t* tr, vec3_t start, vec3_t end, int p
         // Run the trace as is
         trap_Trace ( tr, start, NULL, NULL, end, passent, mask );
 
-        #ifdef _DEMO
-        for(i = 0; i < MAX_G2_COLLISIONS; i++){
+        //#ifdef _DEMO
+        //for(i = 0; i < MAX_G2_COLLISIONS; i++){
             // This is needed for the qsort to work in the engine.
-            tr->G2CollisionMap[i].mEntityNum = -1;
-        }
-        #endif // _DEMO
+        //    tr->G2CollisionMap[i].mEntityNum = -1;
+        //}
+        //#endif // _DEMO
 
         // If the bullet hit glass then break it completely for now
         if ( tr->fraction != 1 && !Q_stricmp ( g_entities[ tr->entityNum ].classname, "func_glass" ) )
@@ -181,8 +181,8 @@ void G_TraceBullet(weapon_t weapon, trace_t* tr, vec3_t start, vec3_t end, int p
             trap_G2API_SetBoneAngles( level.serverGhoul2, 0, "lower_lumbar", traceEnt->client->ghoulLowerTorsoAngles, BONE_ANGLES_POSTMULT, POSITIVE_X, NEGATIVE_Y, NEGATIVE_Z, 0, 0, level.time );
             trap_G2API_SetBoneAngles( level.serverGhoul2, 0, "cranium",      traceEnt->client->ghoulHeadAngles, BONE_ANGLES_POSTMULT, POSITIVE_Z, NEGATIVE_Y, POSITIVE_X, 0,0, level.time );
 
-            #ifndef _DEMO
-            trap_G2API_CollisionDetect ( G2Trace, level.serverGhoul2, traceEnt->client->ghoulLegsAngles, traceEnt->r.currentOrigin, level.time, traceEnt->s.number, start, end, vec3_identity, 0, 2 );
+            //#ifndef _DEMO
+            trap_G2API_CollisionDetect ( G2Trace, level.serverGhoul2, traceEnt->client->ghoulLegsAngles, traceEnt->r.currentOrigin, level.time, traceEnt->s.number, start, end, vec3_identity, 0, 0 );
 
             // Check to see if anyone should yell SNIPER!
             G_CheckSniperCall ( weapon, &g_entities[passent], traceEnt, G2Trace[0].mEntityNum != traceEnt->s.number ? qtrue : qfalse );
@@ -194,8 +194,8 @@ void G_TraceBullet(weapon_t weapon, trace_t* tr, vec3_t start, vec3_t end, int p
                 trap_UnlinkEntity ( traceEnt );
                 continue;
             }
-            #else
-            trap_G2API_CollisionDetect(tr->G2CollisionMap, level.serverGhoul2, traceEnt->client->ghoulLegsAngles, traceEnt->r.currentOrigin, level.time, traceEnt->s.number, start, end, vec3_identity, 0, 0);
+            //#else
+            /*trap_G2API_CollisionDetect(tr->G2CollisionMap, level.serverGhoul2, traceEnt->client->ghoulLegsAngles, traceEnt->r.currentOrigin, level.time, traceEnt->s.number, start, end, vec3_identity, 0, 0);
 
             // Check to see if anyone should yell SNIPER!
             G_CheckSniperCall(weapon, &g_entities[passent], traceEnt, tr->G2CollisionMap[0].mEntityNum != traceEnt->s.number ? qtrue : qfalse);
@@ -207,7 +207,7 @@ void G_TraceBullet(weapon_t weapon, trace_t* tr, vec3_t start, vec3_t end, int p
                 trap_UnlinkEntity(traceEnt);
                 continue;
             }
-            #endif // not _DEMO
+            #endif // not _DEMO*/
 
             trap_UnlinkEntity ( traceEnt );
 
@@ -217,7 +217,7 @@ void G_TraceBullet(weapon_t weapon, trace_t* tr, vec3_t start, vec3_t end, int p
             // is accounted for, but that means the player will stick through walls too.  To check
             // for this we run a trace from the hit location on the big bounding box to the
             // hit location of the ghoul model and make sure there is nothing solid in the way
-            #ifndef _DEMO
+            //#ifndef _DEMO
             trap_Trace ( &vtr, tr->endpos, NULL, NULL, G2Trace[0].mCollisionPosition, passent, MASK_SHOT&(~CONTENTS_BODY) );
             if ( vtr.entityNum != G2Trace[0].mEntityNum )
             {
@@ -228,8 +228,8 @@ void G_TraceBullet(weapon_t weapon, trace_t* tr, vec3_t start, vec3_t end, int p
                     continue;
                 }
             }
-            #else
-            trap_Trace(&vtr, tr->endpos, NULL, NULL, tr->G2CollisionMap[0].mCollisionPosition, passent, mask);
+            //#else
+            /*trap_Trace(&vtr, tr->endpos, NULL, NULL, tr->G2CollisionMap[0].mCollisionPosition, passent, mask);
 
             if (vtr.entityNum != tr->G2CollisionMap[0].mEntityNum)
             {
@@ -240,7 +240,7 @@ void G_TraceBullet(weapon_t weapon, trace_t* tr, vec3_t start, vec3_t end, int p
                     continue;
                 }
             }
-            #endif // not _DEMO
+            #endif // not _DEMO*/
 
             trap_LinkEntity ( traceEnt );
         }
@@ -455,9 +455,9 @@ void G_FireBullet ( gentity_t* ent, int weapon, int attack )
     vec3_t      fireAngs;
     float       damageMult;
     int         hitcount;
-    #ifndef _DEMO
+    //#ifndef _DEMO
     G2Trace_t   G2Trace;
-    #endif // not _DEMO
+    //#endif // not _DEMO
 
     int             maxFx;
     weaponData_t*   weaponDat;
@@ -567,11 +567,11 @@ void G_FireBullet ( gentity_t* ent, int weapon, int attack )
         // KRIS
 
         // Trace the bullet
-        #ifndef _DEMO
+#ifndef _DEMO
         G_TraceBullet(weapon, &tr, G2Trace, muzzlePoint, end, ent->s.number, MASK_SHOT, detailed);
-        #else
-        G_TraceBullet(weapon, &tr, muzzlePoint, end, ent->s.number, (MASK_PLAYERSOLID|CONTENTS_CORPSE)&(~CONTENTS_PLAYERCLIP), detailed);
-        #endif // not _DEMO
+#else
+        G_TraceBullet(weapon, &tr, G2Trace, muzzlePoint, end, ent->s.number, (MASK_PLAYERSOLID | CONTENTS_CORPSE) & (~CONTENTS_PLAYERCLIP), detailed);
+#endif
 
         // KRIS 7/08/2003 11:07AM
         if (!detailed)
@@ -607,11 +607,11 @@ void G_FireBullet ( gentity_t* ent, int weapon, int attack )
             if ( ent->client && traceEnt->client )
             {
                 // Add or subtract some damage depending on where it hits
-                #ifndef _DEMO
+                //#ifndef _DEMO
                 if ( G2Trace[0].mEntityNum == -1 )
-                #else
-                if (tr.G2CollisionMap[0].mEntityNum == -1)
-                #endif // not _DEMO
+                //#else
+                //if (tr.G2CollisionMap[0].mEntityNum == -1)
+                //#endif // not _DEMO
                 {
                     vec3_t dir;
 
@@ -707,22 +707,22 @@ void G_FireBullet ( gentity_t* ent, int weapon, int attack )
                         accuracyRatio = Com_Clampf ( 0.0f, 1.0f, accuracyRatio );
                     }
 
-                    #ifndef _DEMO
+                    //#ifndef _DEMO
                     for(z = 0; z < MAX_G2_COLLISIONS && G2Trace[z].mEntityNum != -1; z ++)
-                    #else
-                    for(z = 0; z < MAX_G2_COLLISIONS && tr.G2CollisionMap[z].mEntityNum != -1; z++)
-                    #endif // not _DEMO
+                    //#else
+                    //for(z = 0; z < MAX_G2_COLLISIONS && tr.G2CollisionMap[z].mEntityNum != -1; z++)
+                    //#endif // not _DEMO
                     {
                         int          temp_location;
                         float         temp_damageMult;
                         int           pose;
                         int           l;
 
-                        #ifndef _DEMO
+                        //#ifndef _DEMO
                         pose            = ( G2Trace[z].mLocation >> 2 );
-                        #else
-                        pose            = (tr.G2CollisionMap[z].mLocation >> 2);
-                        #endif // not _DEMO
+                        //#else
+                        //pose            = (tr.G2CollisionMap[z].mLocation >> 2);
+                        //#endif // not _DEMO
                         temp_damageMult = 0.0f;
                         temp_location   = HL_NONE;
 

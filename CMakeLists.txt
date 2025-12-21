@@ -13,8 +13,7 @@ project(${PROJECT_NAME} VERSION ${PROJECT_VERSION} LANGUAGES C)
 
 option(FORCE_32BIT "Build the mod in x86 mode" OFF)
 option(BUILD_GOLD "Build 1fxmod for Gold (1.03)" OFF)
-
-# No DEMO building with cmake - there are changes done which would not be compatible otherwise.
+option(BUILD_DEMO "Build 1fxmod for Demo (1.02t)" OFF)
 option(BUILD_DEV "Include _DEV preprocessor" OFF)
 option(BUILD_PRE "Include _PRE preprocessor" OFF)
 option(BUILD_3DSERVER "Include _3DServer preprocessor" OFF)
@@ -57,8 +56,16 @@ add_compile_definitions(
         _SOF2
 )
 
+if(BUILD_GOLD AND BUILD_DEMO)
+  message( FATAL_ERROR "You cannot build Gold and Demo mod at the same time." )
+endif()
+
 if(BUILD_GOLD)
   add_compile_definitions(_GOLD)
+endif()
+
+if (BUILD_DEMO)
+  add_compile_definitions(_DEMO)
 endif()
 
 if(BUILD_DEV)

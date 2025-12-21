@@ -1165,7 +1165,7 @@ typedef struct {
     int         entityNum;  // entity the contacted sirface is a part of
 
 #ifdef _DEMO
-    CollisionRecord_t G2CollisionMap[MAX_G2_COLLISIONS]; // map that describes all of the parts of ghoul2 models that got hit
+    //CollisionRecord_t G2CollisionMap[MAX_G2_COLLISIONS]; // map that describes all of the parts of ghoul2 models that got hit
 #endif // _DEMO
 } trace_t;
 
