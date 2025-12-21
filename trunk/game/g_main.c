@@ -1837,7 +1837,14 @@ void G_InitGame( int levelTime, int randomSeed, int restart )
     // Now parse the gametype information that we need.  This needs to be
     // done after the entity spawn so that the items and triggers can be
     // linked up properly
-    G_ParseGametypeFile ( );
+    
+#ifdef _DEMO
+    // Only elim and inf are valid script files in Demo, DM and TDM are hardcoded.
+    if (current_gametype.value == GT_INF || current_gametype.value == GT_ELIM)
+#endif
+    {
+        G_ParseGametypeFile();
+    }
 
     // Load in the identities
     BG_ParseNPCFiles ( );
