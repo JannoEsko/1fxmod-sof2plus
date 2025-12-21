@@ -9,8 +9,6 @@ Mainly, those include:
 * Changing local game memory to be like sof2plus-game (VM_*Alloc routines)
 * Use Windows thread functions instead of pthreads on Windows builds
 
-Unfortunately thanks to this, DEMO builds are not a part of CMake and the changes would also prevent running it.
-
 As the original SoF2Plus repository lacks legacy ABI support, compiling 1fxmod (especially 1.00) requires my version of SoF2Plus engine to run - https://github.com/JannoEsko/sof2plus-engine
 
 There are 2 minor fixes included:
