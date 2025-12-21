@@ -532,7 +532,7 @@ jobs:
           name: "Latest Build — ${{ env.RELEASE_DATE }}"
           # https://github.com/orgs/community/discussions/31628 - can't use autogeneration because that only references PR's
           draft: false
-          prerelease: true
+          prerelease: false
           fail_on_unmatched_files: true
           body: |
             This release contains all the latest builds for each platform and configuration.
