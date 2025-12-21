@@ -30,7 +30,7 @@ CMake allows the builds to be easy. The CMake script has the following options d
 | `BUILD_PRE` | `OFF` | Defines whether to build the mod with _PRE preprocessor flags | 
 | `BUILD_3DSERVER` | `OFF` | Defines whether to build the mod with _3DServer preprocessor flags (e.g. deadmonkeys etc) | 
 | `BUILD_NIGHTLY` | `OFF` | Defines whether to build the mod with _NIGHTLY preprocessor flags | 
-
+| `BUILD_DEMO` | `OFF` | Defines which mod version is being built - silver or demo. |
 
 CMake command to invoke:
 ```
