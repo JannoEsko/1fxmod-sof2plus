@@ -9,9 +9,9 @@ Mainly, those include:
 * Changing local game memory to be like sof2plus-game (VM_*Alloc routines)
 * Use Windows thread functions instead of pthreads on Windows builds
 
-Unfortunately thanks to this, DEMO builds are not a part of CMake and the changes would also prevent running it.
-
 As the original SoF2Plus repository lacks legacy ABI support, compiling 1fxmod (especially 1.00) requires my version of SoF2Plus engine to run - https://github.com/JannoEsko/sof2plus-engine
+
+### NB: You still need to first download 1fxmod from [https://1fxmod.org/download/](https://1fxmod.org/download/) - release builds here only have the library, but not the surrounding files.
 
 There are 2 minor fixes included:
 * Using colors in adding admin commands (e.g. !^ab) results in adding sadmin (even if the client is not privileged to do so / is only privileged to add b-admin)
@@ -30,7 +30,7 @@ CMake allows the builds to be easy. The CMake script has the following options d
 | `BUILD_PRE` | `OFF` | Defines whether to build the mod with _PRE preprocessor flags | 
 | `BUILD_3DSERVER` | `OFF` | Defines whether to build the mod with _3DServer preprocessor flags (e.g. deadmonkeys etc) | 
 | `BUILD_NIGHTLY` | `OFF` | Defines whether to build the mod with _NIGHTLY preprocessor flags | 
-
+| `BUILD_DEMO` | `OFF` | Defines which mod version is being built - silver or demo. |
 
 CMake command to invoke:
 ```
