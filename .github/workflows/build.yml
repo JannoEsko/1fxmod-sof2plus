@@ -342,7 +342,7 @@ jobs:
           mkdir -p build && cd build
           FLAGS=""
           [ "${{ matrix.arch }}" = "x86" ] && FLAGS="-DFORCE_32BIT=ON -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32 -DCMAKE_EXE_LINKER_FLAGS=-m32"
-          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DBUILD_GOLD=${{ matrix.goldbuild }} $FLAGS -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$(pwd)/../artifacts/1fx/
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DBUILD_GOLD=${{ matrix.goldbuild }} -DBUILD_DEMO=${{ matrix.demobuild }} $FLAGS -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$(pwd)/../artifacts/1fx/
           cmake --build . --parallel
 
       - name: Build (CMake - MinGW)
@@ -352,7 +352,7 @@ jobs:
           mkdir -p build && cd build
           FLAGS=""
           [ "${{ matrix.arch }}" = "x86" ] && FLAGS="-DFORCE_32BIT=ON -DCMAKE_C_FLAGS=-m32 -DCMAKE_CXX_FLAGS=-m32 -DCMAKE_EXE_LINKER_FLAGS=-m32"
-          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DBUILD_GOLD=${{ matrix.goldbuild }} $FLAGS -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$(pwd)/../artifacts/1fx/
+          cmake .. -G Ninja -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} -DBUILD_GOLD=${{ matrix.goldbuild }} -DBUILD_DEMO=${{ matrix.demobuild }} $FLAGS -DCMAKE_LIBRARY_OUTPUT_DIRECTORY=$(pwd)/../artifacts/1fx/
           cmake --build . --parallel
 
       - name: Build (MSVC)
