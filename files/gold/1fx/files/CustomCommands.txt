@@ -1,0 +1,22 @@
+// You can put your custom commands here.
+addbot
+{
+Command "addbot" // The command for /adm.
+ShortCommand "!addbot" // The shortcut command for in chat.
+Broadcast "Adding a bot!" // The broadcast.
+Description "Adds a bot to the game" // The info in /adm
+AdminLevel "4" // Admin level required to execute this command.
+Action "addbot %arg1" // The action you would normally do in RCON.
+Message "Adding bot to the game!" // The [Info] message in the console.
+}
+
+kickallbots
+{
+Command "kickbots" // The command for /adm.
+ShortCommand "!kickbots" // The shortcut command for in chat.
+Broadcast "Kicking all bots!" // The broadcast.
+Description "Kicks all bots from the game" // The info in /adm
+AdminLevel "4" // Admin level required to execute this command.
+Action "kick allbots" // The action you would normally do in RCON.
+Message "Kicking all bots from the game!" // The [Info] message in the console.
+}

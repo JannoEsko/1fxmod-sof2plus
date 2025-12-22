@@ -1298,6 +1298,9 @@ void G_initClientMod()
         // Client death messages are handled by server.
         g_clientDeathMessages.integer = 0;
     }
+
+    trap_Cvar_Set("sv_silverClientMod", g_clientMod.string);
+    trap_Cvar_Set("sv_goldClientMod", g_clientMod.string);
 }
 
 /*

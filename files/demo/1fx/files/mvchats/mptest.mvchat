@@ -1,0 +1,282 @@
+// Part of 1fx. Mod version 0.82 and higher.
+// MP TEST MVCHAT file. This file contains the only voice sounds
+// available in the MP TEST assets.
+
+// No extra soundpacks are required client-side to use this MVCHAT file.
+// The sounds defined in this file are 1 up to 16.
+
+1
+{
+	number		"1"
+	text		"Be careful"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/radio/male/careful.mp3"
+		}
+
+		female
+		{
+			sound		"sound/radio/fmale/careful.mp3"
+		}
+	}
+}
+
+2
+{
+	number		"2"
+	text		"Clear"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/radio/male/clear.mp3"
+		}
+	}
+}
+
+3
+{
+	number		"3"
+	text		"Cover me"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/radio/male/cover_me.mp3"
+		}
+
+		female
+		{
+			sound		"sound/radio/fmale/cover_me.mp3"
+		}
+	}
+}
+
+4
+{
+	number		"4"
+	text		"Got him!"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/radio/male/got_him.mp3"
+		}
+	}
+}
+
+5
+{
+	number		"5"
+	text		"Got it!"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/radio/male/got_it.mp3"
+		}
+	}
+}
+
+6
+{
+	number		"6"
+	text		"Hold position"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/radio/male/hold_position.mp3"
+		}
+
+		female
+		{
+			sound		"sound/radio/fmale/hold_position.mp3"
+		}
+	}
+}
+
+7
+{
+	number		"7"
+	text		"MAN DOWN"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/radio/male/man_down01.mp3"
+		}
+	}
+}
+
+8
+{
+	number		"8"
+	text		"I need backup, now!"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/radio/male/need_backup.mp3"
+		}
+	}
+}
+
+9
+{
+	number		"9"
+	text		"Objective complete"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/radio/male/obj_complete.mp3"
+		}
+	}
+}
+
+10
+{
+	number		"10"
+	text		"Take cover"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/radio/male/take_cover.mp3"
+		}
+	}
+}
+
+11
+{
+	number		"11"
+	text		"Underfire"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/radio/male/underfire01.mp3"
+		}
+
+		female
+		{
+			sound		"sound/radio/fmale/underfire01.mp3"
+		}
+	}
+}
+
+12
+{
+	number		"12"
+	text		"Go check that out"
+
+	en
+	{
+		default		"yes"
+
+		female
+		{
+			sound		"sound/radio/fmale/check_that_out.mp3"
+		}
+	}
+}
+
+13
+{
+	number		"13"
+	text		"Check your fire!"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/npc/col8/blakely/checkfire.mp3"
+		}
+	}
+}
+
+14
+{
+	number		"14"
+	text		"Fire in the hole!"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/npc/col8/blakely/firehole.mp3"
+		}
+	}
+}
+
+15
+{
+	number		"15"
+	text		"Grenade!"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/npc/col8/blakely/grenade.mp3"
+		}
+	}
+}
+
+16
+{
+	number		"16"
+	text		"Sniper!"
+
+	en
+	{
+		default		"yes"
+
+		male
+		{
+			sound		"sound/npc/col8/blakely/sniper.mp3"
+		}
+	}
+}

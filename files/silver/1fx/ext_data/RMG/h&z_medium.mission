@@ -1,0 +1,432 @@
+mission
+{
+	description		"Humans&Zombies"
+	padding			50
+
+	standard
+	{
+		nodes
+		{
+			x_cells		4
+			y_cells		4
+
+			start_red
+			{
+				min_depth 2
+				max_depth 2
+				min_paths 1
+				max_paths 3
+			}
+
+			center
+			{
+				min_depth 0
+				max_depth 0
+				min_paths 1
+				max_paths 4
+			}
+
+			start_blue
+			{
+				min_depth 4
+				max_depth 4
+				min_paths 1
+			}
+
+			mid1
+			{
+				min_depth 2
+				max_depth 2
+				min_paths 1
+				max_paths 3
+			}
+
+			mid2
+			{
+				min_depth 3
+				max_depth 3
+				min_paths 1
+				max_paths 3
+			}
+
+			dead_end1
+			{
+				min_depth 1
+				max_depth 1
+				min_paths 1
+				max_paths 4
+			}
+
+			dead_end2
+			{
+				min_depth 4
+				max_depth 4
+				min_paths 1
+				max_paths 4
+			}
+
+			dead_end3
+			{
+				min_depth 2
+				max_depth 2
+				min_paths 1
+				max_paths 4
+			}
+
+		}
+
+//		rivers
+//		{
+//			random_choice
+//			{	// normal river
+//				maxpathdepth 4
+//				depth		.05
+//				minwidth	.02
+//				maxwidth	.03
+//				points		6
+//				deviation	.03
+//				breadth		6
+//				bridge		"bridge"
+//			}
+//
+//			random_choice
+//			{	// shallow river
+//				maxpathdepth 4
+//				depth		.15
+//				minwidth	.02
+//				maxwidth	.03
+//				points		6
+//				deviation	.03
+//				breadth		7
+//				bridge		"bridge"
+//			}
+//		}
+
+		paths
+		{
+			random_choice
+			{
+				depth		.19
+				minwidth	.03
+				maxwidth	.05
+				points		9
+				deviation	.04
+				breadth		7
+			}
+
+			random_choice
+			{
+				depth		.19
+				minwidth	.03
+				maxwidth	.04
+				points		7
+				deviation	.035
+				breadth		7
+			}
+		}
+
+		instances
+		{
+
+			largecover
+			{
+				origin
+				{
+					node		"dead_end1"
+				}
+			}
+
+			cover_clump
+			{
+				origin
+				{
+					node		"dead_end2"
+				}
+
+
+				instanceonpath
+				{
+					instance	"smallcover"
+					minposition 0.4
+					maxposition 0.6	
+					mincount 1
+					maxcount 2
+				}
+
+				instanceonpath
+				{
+					instance	"naturalcover"
+					minposition 0.3
+					maxposition 0.7
+					mincount 3
+					maxcount 4
+				}
+
+				instanceonpath
+				{
+					instance	"tree_clump"
+					minposition 0.2
+					maxposition 0.8
+					mincount 2
+					maxcount 4
+				}
+
+				instanceonpath
+				{
+					instance	"tower"
+					minposition 0.5
+					maxposition 0.5
+					pathalign	0.55
+					mincount 0
+					maxcount 1
+				}
+			}
+			
+			tower
+			{
+				origin
+				{
+					node		"dead_end2"
+				}
+			}
+
+			cover_clump
+			{
+				origin
+				{
+					node		"mid1"
+				}
+
+				instanceonpath
+				{
+					instance	"smallcover"
+					minposition 0.4
+					maxposition 0.6	
+					mincount 1
+					maxcount 2
+				}
+
+				instanceonpath
+				{
+					instance	"naturalcover"
+					minposition 0.3
+					maxposition 0.7
+					mincount 3
+					maxcount 4
+				}
+
+				instanceonpath
+				{
+					instance	"tree_clump"
+					minposition 0.2
+					maxposition 0.8
+					mincount 2
+					maxcount 4
+				}
+
+				instanceonpath
+				{
+					instance	"tower"
+					minposition 0.5
+					maxposition 0.5
+					pathalign	0.55
+					mincount 0
+					maxcount 1
+				}
+			}
+
+			large_clearing
+			{
+				origin
+				{
+					node		"deadend3"
+				}
+			}
+
+			cover_clump
+			{
+				origin
+				{
+					node		"deadend3"
+				}
+
+				instanceonpath
+				{
+					instance	"smallcover"
+					minposition 0.4
+					maxposition 0.6	
+					mincount 1
+					maxcount 2
+				}
+
+				instanceonpath
+				{
+					instance	"naturalcover"
+					minposition 0.3
+					maxposition 0.7
+					mincount 3
+					maxcount 4
+				}
+
+				instanceonpath
+				{
+					instance	"tree_clump"
+					minposition 0.2
+					maxposition 0.8
+					mincount 2
+					maxcount 4
+				}
+
+				instanceonpath
+				{
+					instance	"mp_random_defense"
+					minposition 0.5
+					maxposition 0.5
+					pathalign	0.55
+					mincount 0
+					maxcount 1
+				}
+			}
+
+			helicopter_start
+			{
+				teamfilter	"blue"
+				filter		"inf_blue"
+	
+				origin
+				{
+					node		"start_blue"
+				}
+
+				instanceonpath
+				{
+					instance	"naturalcover"
+					minposition 0.3
+					maxposition 0.7
+					mincount 2
+					maxcount 3
+				}
+
+				instanceonpath
+				{
+					instance	"smallcover"
+					minposition 0.3
+					maxposition 0.7
+					mincount 1
+					maxcount 2
+				}
+
+				instanceonpath
+				{
+					instance	"tree_clump"
+					minposition 0.2
+					maxposition 0.8
+					mincount 1
+					maxcount 2
+				}
+			}
+
+
+			mp_village
+			{
+				teamfilter	"red"
+
+				origin
+				{
+					node		"start_red"
+				}
+
+				instanceonpath
+				{
+					instance	"smallcover"
+					minposition 0.4
+					maxposition 0.6	
+					mincount 1
+					maxcount 2
+				}
+
+				instanceonpath
+				{
+					instance	"naturalcover"
+					minposition 0.3
+					maxposition 0.7
+					mincount 3
+					maxcount 4
+				}
+
+				instanceonpath
+				{
+					instance	"tree_clump"
+					minposition 0.3
+					maxposition 0.7
+					mincount 2
+					maxcount 4
+				}
+
+				instanceonpath
+				{
+					instance	"mp_random_defense"
+					minposition 0.5
+					maxposition 0.5
+					pathalign	0.6
+					mincount 0
+					maxcount 1
+				}
+			}
+
+			mp_village
+			{
+				origin
+				{
+					node		"center"
+				}
+
+				instanceonpath
+				{
+					instance	"smallcover"
+					minposition 0.4
+					maxposition 0.6	
+					mincount 2
+					maxcount 3
+				}
+
+				instanceonpath
+				{
+					instance	"naturalcover"
+					minposition 0.3
+					maxposition 0.7
+					mincount 2
+					maxcount 3
+				}
+
+				instanceonpath
+				{
+					instance	"tree_clump"
+					minposition 0.2
+					maxposition 0.8
+					mincount 2
+					maxcount 4
+				}
+
+				instanceonpath
+				{
+					instance	"mp_random_defense"
+					minposition 0.5
+					maxposition 0.5
+					pathalign	0.6
+				}
+			}
+
+			inf
+			{
+				teamfilter	"red"
+
+				origin
+				{
+					node		"center"
+				}
+			}
+
+		}
+	}
+}

@@ -1,0 +1,38 @@
+// Part of 1fx. Mod version 0.80 and higher.
+// This is the mapcycle file, this file will be executed
+// at the start of the server in order to load a map.
+
+// In order to only have one map load instead of
+// multiple maps, you can remove the map1 and map2
+// entry from this file. You would also have to set
+// the desired gametype, time- and scorelimit CVARs
+// and change the g_motd CVAR from the map0 entry.
+
+// Choices for gametypes are:
+// dm, tdm, inf or elim
+
+mapcycle
+{
+	map0
+	{
+		command "map mp_shop"
+		cvars
+		{
+			fraglimit 0
+			timelimit 20
+			g_gametype inf
+			g_motd "Next map is mp_shop [DM]"
+		}
+	}
+    map1
+	{
+		command "map mp_shop"
+		cvars
+		{
+			fraglimit 25
+			timelimit 20
+			g_gametype dm
+			g_motd "Next map is mp_shop [INF]"
+		}
+	}
+}

@@ -1,0 +1,62 @@
+// Part of 1fx. Mod version 0.80 and higher.
+// Hide&Seek damage file, this file will be executed if
+// g_customWeaponFile is empty or set to none and when:
+// - Loaded at start-up if Hide&Seek is loaded, and
+// - The col9 entity is loaded, and
+// - "minigame" "ctb" is defined in the worldspawn entity.
+
+// You can modify the basic attributes of your weapons in this file.
+// If an attribute is missing, its default value will be used.
+// Only the following attributes will be parsed by the server:
+// - name (must be left alone or the attributes won't be parsed)
+// - clipSize (or mp_clipSize)
+// - mp_radius (or radius)
+// - mp_extraClips
+// - mp_damage
+
+// NOTE - changing values in weapons may break this gametype.
+// We advise you not to change this file at all.
+
+weapon
+{
+	name		"AK74"
+
+	attack
+	{
+		clipSize		"7"
+		mp_damage		"25"
+		mp_extraClips		"25"
+	}
+}
+
+weapon
+{
+	name		"MSG90A1"
+
+	attack
+	{
+		clipSize		"5"
+		mp_damage		"75"
+		mp_extraClips		"5"
+	}
+}
+
+weapon
+{
+	name		"M15"
+
+	attack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"1"
+		mp_extraClips		"1"
+	}
+
+	altattack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"1"
+	}
+}

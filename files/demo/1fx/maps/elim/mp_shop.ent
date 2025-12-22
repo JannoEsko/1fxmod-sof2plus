@@ -1,0 +1,1180 @@
+{
+"classname" "worldspawn"
+"message" "The Shop Under Siege"
+"music" "music/inf_shop"
+"redteam" "shop"
+"blueteam" "prometheus"
+}
+{
+"classname" "info_player_intermission"
+"angles" "0 45 0"
+"target" "t16"
+"origin" "-552 -480 622"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-368 1456 622"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-528 1456 622"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-368 1712 670"
+"angle" "270"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-304 1616 638"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-304 1808 670"
+"angles" "0 90 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-304 1872 638"
+"angles" "0 90 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-176 1456 622"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-400 2000 622"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-592 2000 622"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-240 2000 622"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-656 1616 622"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-800 1616 622"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-784 1872 622"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-32 1520 622"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-16 1760 622"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "2"
+"origin" "-16 1936 622"
+"angles" "0 270 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2608 -368 78"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2604 -456 78"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "3024 -344 78"
+"angles" "0 180 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2984 -467 78"
+"angles" "0 135 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2896 -400 78"
+"angles" "0 90 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2800 -400 78"
+"angles" "0 90 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2704 -456 78"
+"angles" "0 90 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2928 -272 78"
+"angles" "0 180 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2776 -272 78"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2920 -176 78"
+"angles" "0 180 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2776 -176 78"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2920 -80 78"
+"angles" "0 180 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2776 -80 78"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "2704 -336 78"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "3112 -344 78"
+"angles" "0 180 0"
+}
+{
+"classname" "gametype_player"
+"gametype" "elim"
+"spawnflags" "1"
+"origin" "3112 -464 78"
+"angles" "0 180 0"
+}
+{
+"model" "*1"
+"classname" "trigger_hurt"
+"spawnflags" "8"
+"dmg" "1000"
+}
+{
+"model" "*2"
+"classname" "func_glass"
+}
+{
+"model" "*3"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*4"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*5"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*6"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*7"
+"classname" "trigger_ladder"
+"angles" "0 90 0"
+}
+{
+"model" "*8"
+"classname" "trigger_ladder"
+"angles" "0 180 0"
+}
+{
+"model" "*9"
+"classname" "trigger_ladder"
+"angles" "0 360 0"
+}
+{
+"model" "*10"
+"classname" "trigger_ladder"
+"angles" "0 270 0"
+}
+{
+"model" "*11"
+"classname" "trigger_ladder"
+"angles" "0 90 0"
+}
+{
+"model" "*12"
+"classname" "trigger_ladder"
+"angles" "0 270 0"
+}
+{
+"model" "*13"
+"classname" "trigger_ladder"
+"angles" "0 180 0"
+}
+{
+"model" "*14"
+"classname" "func_static"
+"origin" "-392 1764 764"
+"gametype" "inf elim"
+}
+{
+"model" "*15"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*16"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*17"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*18"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*19"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*20"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*21"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*22"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*23"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*24"
+"classname" "func_glass"
+"gametype" "inf elim"
+}
+{
+"model" "*25"
+"classname" "func_static"
+}
+{
+"model" "*26"
+"classname" "func_static"
+"gametype" "inf elim"
+}
+{
+"model" "*27"
+"classname" "func_static"
+"gametype" "inf elim"
+}
+{
+"model" "*28"
+"classname" "func_glass"
+}
+{
+"model" "*29"
+"classname" "func_glass"
+}
+{
+"model" "*30"
+"classname" "func_glass"
+}
+{
+"model" "*31"
+"classname" "func_glass"
+}
+{
+"model" "*32"
+"classname" "func_static"
+}
+{
+"model" "*33"
+"classname" "func_static"
+}
+{
+"model" "*34"
+"classname" "func_static"
+}
+{
+"model" "*36"
+"classname" "func_static"
+}
+{
+"model" "*37"
+"classname" "func_static"
+}
+{
+"model" "*38"
+"classname" "func_static"
+}
+{
+"model" "*39"
+"classname" "func_static"
+}
+{
+"model" "*40"
+"classname" "func_glass"
+}
+{
+"model" "*41"
+"classname" "trigger_hurt"
+"gametype" "inf elim"
+"spawnflags" "12"
+"dmg" "1000"
+}
+{
+"model" "*42"
+"classname" "func_rotating"
+"origin" "-412 1764 822"
+"gametype" "inf elim"
+"speed" "-1024"
+}
+{
+"model" "*43"
+"classname" "func_static"
+}
+{
+"model" "*44"
+"classname" "func_glass"
+}
+{
+"model" "*45"
+"classname" "func_static"
+"gametype" "inf elim"
+}
+{
+"model" "*46"
+"classname" "trigger_ladder"
+"angles" "0 90 0"
+}
+{
+"classname" "info_notnull"
+"targetname" "t16"
+"origin" "-132 444 324"
+}
+{
+"classname" "info_notnull"
+"origin" "2592 596 500"
+"targetname" "t4"
+}
+{
+"classname" "info_notnull"
+"origin" "3104 596 500"
+"targetname" "t3"
+}
+{
+"classname" "info_notnull"
+"origin" "2208 -300 500"
+"targetname" "t5"
+}
+{
+"classname" "info_notnull"
+"origin" "1632 -300 500"
+"targetname" "t6"
+}
+{
+"classname" "info_notnull"
+"origin" "368 -412 500"
+"targetname" "t7"
+}
+{
+"classname" "info_notnull"
+"origin" "544 596 500"
+"targetname" "t8"
+}
+{
+"classname" "info_notnull"
+"origin" "1248 596 500"
+"targetname" "t12"
+}
+{
+"classname" "info_notnull"
+"origin" "544 1396 500"
+"targetname" "t9"
+}
+{
+"classname" "info_notnull"
+"origin" "1248 1396 500"
+"targetname" "t10"
+}
+{
+"classname" "info_notnull"
+"origin" "1888 1332 500"
+"targetname" "t11"
+}
+{
+"classname" "info_notnull"
+"origin" "2656 1588 500"
+"targetname" "t1"
+}
+{
+"classname" "info_notnull"
+"origin" "3232 1588 500"
+"targetname" "t2"
+}
+{
+"classname" "info_notnull"
+"targetname" "t13"
+"origin" "3476 632 500"
+}
+{
+"classname" "info_notnull"
+"origin" "3476 1272 500"
+"targetname" "t14"
+}
+{
+"classname" "info_notnull"
+"targetname" "t15"
+"origin" "3564 968 500"
+}
+{
+"classname" "target_speaker"
+"gametype" "inf elim"
+"origin" "-520 1760 1864"
+"spawnflags" "1"
+"radius" "768"
+"soundSet" "huey_main"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "-1984 1280 296"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "-960 -320 296"
+}
+{
+"classname" "target_speaker"
+"origin" "-1856 320 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"origin" "-640 -896 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "64 -1472 296"
+}
+{
+"classname" "target_speaker"
+"origin" "896 -1472 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "4096 -64 296"
+}
+{
+"classname" "target_speaker"
+"origin" "4160 448 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "4288 960 296"
+}
+{
+"classname" "target_speaker"
+"origin" "4160 1472 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "4224 1984 296"
+}
+{
+"classname" "target_speaker"
+"origin" "3968 3008 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "3456 3008 296"
+}
+{
+"classname" "target_speaker"
+"origin" "2944 3008 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "2432 3008 296"
+}
+{
+"classname" "target_speaker"
+"origin" "1920 3008 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "1408 3008 296"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "832 3072 296"
+}
+{
+"classname" "target_speaker"
+"origin" "320 3072 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "-192 3072 296"
+}
+{
+"classname" "target_speaker"
+"origin" "-704 3072 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "-1216 3072 296"
+}
+{
+"classname" "target_speaker"
+"origin" "-1600 2560 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "-1856 2048 296"
+}
+{
+"classname" "target_speaker"
+"origin" "4096 -576 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "4096 -1472 296"
+}
+{
+"classname" "target_speaker"
+"origin" "3584 -1472 296"
+"noise" "sound/ambience/colombia/vil_wind"
+"spawnflags" "1"
+"radius" "1024"
+}
+{
+"classname" "target_speaker"
+"radius" "1024"
+"spawnflags" "1"
+"noise" "sound/ambience/colombia/vil_wind"
+"origin" "2688 -1344 296"
+}
+{
+"classname" "target_speaker"
+"radius" "256"
+"spawnflags" "1"
+"noise" "sound/ambience/generic/metal_stress01"
+"origin" "440 2456 296"
+"soundSet" "arm_elev"
+}
+{
+"classname" "target_speaker"
+"origin" "3760 512 296"
+"spawnflags" "1"
+"radius" "256"
+"soundSet" "arm_elev"
+}
+{
+"classname" "target_location"
+"message" "Kitchen"
+"origin" "1896 216 56"
+}
+{
+"classname" "target_location"
+"origin" "744 72 56"
+"message" "Main Conference Hall"
+}
+{
+"classname" "target_location"
+"message" "Patio"
+"origin" "-200 -56 56"
+}
+{
+"classname" "target_location"
+"message" "Entrance To Hall"
+"origin" "760 1224 104"
+}
+{
+"classname" "target_location"
+"origin" "728 1672 328"
+"message" "Small Elevator Shaft"
+}
+{
+"classname" "target_location"
+"origin" "2848 168 104"
+"message" "Back Kitchen Access"
+}
+{
+"classname" "target_location"
+"message" "Security Elevator"
+"origin" "2856 -408 104"
+}
+{
+"classname" "target_location"
+"message" "Stairway Access"
+"origin" "2864 1000 184"
+}
+{
+"classname" "target_location"
+"origin" "3328 960 304"
+"message" "Cargo Elevator"
+}
+{
+"classname" "target_location"
+"origin" "2135 1351 191"
+"message" "Main Hall East Side"
+}
+{
+"classname" "target_location"
+"message" "Main Hall West Side"
+"origin" "-377 1647 191"
+}
+{
+"classname" "target_location"
+"origin" "-704 1800 248"
+"message" "North Office"
+}
+{
+"classname" "target_location"
+"message" "South Office"
+"origin" "-200 848 320"
+}
+{
+"classname" "target_location"
+"message" "Outside Building By North Scaffold"
+"origin" "136 2760 248"
+}
+{
+"classname" "target_location"
+"origin" "3856 512 248"
+"message" "Outside Building By East Scaffold"
+}
+{
+"classname" "target_location"
+"origin" "3528 1656 184"
+"message" "Main Roof Stairs"
+}
+{
+"classname" "target_location"
+"message" "Main Roof Stairs Access"
+"origin" "2176 1728 488"
+}
+{
+"classname" "target_location"
+"origin" "2840 1024 488"
+"message" "On Roof East Side"
+}
+{
+"classname" "target_location"
+"message" "On Roof Center"
+"origin" "1992 976 488"
+}
+{
+"classname" "target_location"
+"message" "Helicopter Pad"
+"origin" "-280 1232 680"
+}
+{
+"classname" "target_location"
+"origin" "1128 1088 488"
+"message" "Roof West"
+}
+{
+"classname" "target_location"
+"message" "Roff South West"
+"origin" "392 -368 488"
+}
+{
+"classname" "target_location"
+"origin" "3592 -368 488"
+"message" "Roof South East"
+}
+{
+"classname" "target_location"
+"message" "Roof South"
+"origin" "1800 -112 488"
+}
+{
+"classname" "target_location"
+"origin" "3528 2000 488"
+"message" "Roof North East"
+}
+{
+"classname" "target_location"
+"message" "Roof North"
+"origin" "1416 1744 488"
+}
+{
+"classname" "misc_model"
+"origin" "928 -120 120"
+"model" "models/objects/common/tv.md3"
+"angles" "0 90 0"
+}
+{
+"classname" "misc_model"
+"origin" "-1004 1612 224"
+"model" "models/objects/liner/misc/mop_bucket.md3"
+}
+{
+"classname" "misc_model"
+"origin" "1920 1792 576"
+"model" "models/objects/finca/lamps/lightbulb1.md3"
+}
+{
+"classname" "misc_model"
+"origin" "271 737 600"
+"model" "models/objects/common/sandbag_section.md3"
+}
+{
+"classname" "misc_model"
+"origin" "226 879 600"
+"angles" "0 90 0"
+"model" "models/objects/common/sandbag_end.md3"
+}
+{
+"classname" "misc_model"
+"origin" "271 738 600"
+"model" "models/objects/common/sandbag_corner.md3"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/prague/furniture/umbrella.md3"
+"origin" "-144 248 0"
+}
+{
+"classname" "misc_model"
+"origin" "1558 -48 52"
+"model" "models/objects/common/sink_faucet.md3"
+}
+{
+"classname" "misc_model"
+"origin" "1524 192 58"
+"angles" "0 -10 0"
+"model" "models/objects/liner/misc/foodtray.md3"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/common/sink_faucet.md3"
+"origin" "1558 -80 52"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/common/sink_faucet.md3"
+"origin" "1558 48 52"
+}
+{
+"classname" "misc_model"
+"origin" "1558 16 52"
+"model" "models/objects/common/sink_faucet.md3"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/common/sink_faucet.md3"
+"origin" "1558 368 52"
+}
+{
+"classname" "misc_model"
+"origin" "1558 336 52"
+"model" "models/objects/common/sink_faucet.md3"
+}
+{
+"classname" "misc_model"
+"origin" "1558 464 52"
+"model" "models/objects/common/sink_faucet.md3"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/common/sink_faucet.md3"
+"origin" "1558 432 52"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/liner/misc/pot_nolid.md3"
+"angles" "0 90 -90"
+"origin" "2066 151 88"
+}
+{
+"classname" "misc_model"
+"origin" "2098 167 87"
+"angles" "0 -90 -90"
+"model" "models/objects/liner/misc/frying_pan.md3"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/liner/misc/frying_pan.md3"
+"angles" "0 90 -90"
+"origin" "2062 133 87"
+}
+{
+"classname" "misc_model"
+"origin" "2094 289 88"
+"angles" "0 -90 -90"
+"model" "models/objects/liner/misc/pot_nolid.md3"
+}
+{
+"classname" "misc_model"
+"origin" "2062 255 87"
+"angles" "0 90 -90"
+"model" "models/objects/liner/misc/frying_pan.md3"
+}
+{
+"classname" "misc_model"
+"origin" "280 702 315"
+"angles" "0 0 0"
+"model" "models/objects/shop/misc/copy_machine.md3"
+}
+{
+"classname" "misc_model"
+"angles" "-26 90 0"
+"model" "models/objects/hospital/misc/office_chair.md3"
+"origin" "1776 1328 72"
+}
+{
+"classname" "misc_model"
+"angles" "90 154 0"
+"model" "models/objects/hospital/carts/cart_2tray.md3"
+"origin" "1722 1368 144"
+}
+{
+"classname" "misc_model"
+"origin" "1673 1459 72"
+"model" "models/objects/hospital/misc/office_chair.md3"
+"angles" "-26 90 0"
+}
+{
+"classname" "misc_model"
+"origin" "1727 1343 144"
+"model" "models/objects/hospital/carts/cart_2tray.md3"
+"angles" "90 -122 0"
+}
+{
+"classname" "misc_model"
+"origin" "-408 64 0"
+"model" "models/objects/prague/furniture/umbrella.md3"
+}
+{
+"classname" "misc_model"
+"origin" "48 -328 0"
+"model" "models/objects/prague/furniture/umbrella.md3"
+}
+{
+"classname" "misc_model"
+"origin" "-80 -8 0"
+"model" "models/objects/prague/furniture/umbrella.md3"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/prague/furniture/umbrella.md3"
+"origin" "-312 -288 0"
+}
+{
+"classname" "misc_model"
+"angles" "0 90 0"
+"model" "models/objects/common/sandbag_corner.md3"
+"origin" "225 879 600"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/common/sandbag_end.md3"
+"angles" "0 90 0"
+"origin" "225 656 600"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/common/sandbag_section.md3"
+"origin" "271 1321 600"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/common/sandbag_end.md3"
+"angles" "0 90 0"
+"origin" "226 1463 600"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/common/sandbag_corner.md3"
+"origin" "271 1322 600"
+}
+{
+"classname" "misc_model"
+"origin" "225 1463 600"
+"model" "models/objects/common/sandbag_corner.md3"
+"angles" "0 90 0"
+}
+{
+"classname" "misc_model"
+"origin" "225 1240 600"
+"angles" "0 90 0"
+"model" "models/objects/common/sandbag_end.md3"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/finca/lamps/lightbulb1.md3"
+"origin" "2252 1868 576"
+}
+{
+"classname" "misc_model"
+"origin" "2700 1868 520"
+"model" "models/objects/finca/lamps/lightbulb1.md3"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/finca/lamps/lightbulb1.md3"
+"origin" "2980 1868 456"
+}
+{
+"classname" "misc_model"
+"origin" "3268 1868 424"
+"model" "models/objects/finca/lamps/lightbulb1.md3"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/finca/lamps/lightbulb1.md3"
+"origin" "3524 1868 392"
+}
+{
+"classname" "misc_model"
+"origin" "3524 1484 392"
+"model" "models/objects/finca/lamps/lightbulb1.md3"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/finca/lamps/lightbulb1.md3"
+"origin" "3204 1484 336"
+}
+{
+"classname" "misc_model"
+"origin" "2884 1484 336"
+"model" "models/objects/finca/lamps/lightbulb1.md3"
+}
+{
+"classname" "misc_model"
+"origin" "3132 1212 224"
+"model" "models/objects/finca/lamps/lightbulb1.md3"
+}
+{
+"classname" "misc_model"
+"angles" "0 0 8"
+"model" "models/objects/liner/misc/mop_bucket.md3"
+"origin" "-1004 1613 240"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/prague/misc/big_chandelier.md3"
+"origin" "752 156 208"
+}
+{
+"classname" "misc_model"
+"origin" "2292 1636 576"
+"model" "models/objects/finca/lamps/lightbulb1.md3"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/finca/lamps/lightbulb1.md3"
+"origin" "2848 1312 336"
+}
+{
+"classname" "misc_model"
+"angles" "0 90 0"
+"model" "models/objects/common/tv.md3"
+"origin" "544 -120 120"
+}
+{
+"classname" "misc_model"
+"origin" "-1004 1609 256"
+"model" "models/objects/liner/misc/mop_bucket.md3"
+"angles" "0 0 -8"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/shop/misc/helipad_lights.md3"
+"origin" "0 1632 576"
+}
+{
+"classname" "misc_model"
+"origin" "-704 1632 576"
+"model" "models/objects/shop/misc/helipad_lights.md3"
+}
+{
+"classname" "misc_model"
+"origin" "0 1880 576"
+"model" "models/objects/shop/misc/helipad_lights.md3"
+}
+{
+"classname" "misc_model"
+"model" "models/objects/shop/misc/helipad_lights.md3"
+"origin" "-704 1880 576"
+}
+{
+"classname" "nolower"
+"origin" "0 0 -280"
+}

@@ -1,0 +1,371 @@
+// Part of 1fx. Mod version 0.80 and higher.
+// Humans&Zombies damage file, this file will be executed if
+// g_customWeaponFile is empty or set to none and when:
+// - Loaded at start-up if Humans&Zombies is loaded.
+
+// You can modify the basic attributes of your weapons in this file.
+// If an attribute is missing, its default value will be used.
+// Only the following attributes will be parsed by the server:
+// - name (must be left alone or the attributes won't be parsed)
+// - clipSize (or mp_clipSize)
+// - mp_radius (or radius)
+// - mp_extraClips
+// - mp_damage
+
+// NOTE - changing values in weapons may break this gametype.
+// We advise you not to change this file at all.
+
+weapon
+{
+	name		"Knife"
+
+	attack
+	{
+		clipSize		"1"
+		mp_damage		"200"
+		mp_extraClips		"0"
+
+	}
+	altattack
+	{
+		clipSize		"1"
+		mp_damage		"80"
+	}
+}
+
+weapon
+{
+	name		"US SOCOM"
+
+	attack
+	{
+		clipSize		"12"
+		mp_damage		"12"
+		mp_extraClips		"0"
+	}
+
+	altattack
+	{
+		mp_damage		"70"
+	}
+}
+
+weapon
+{
+	name		"M1911A1"
+	
+	attack
+	{
+		clipSize		"7"
+		mp_damage		"14"
+		mp_extraClips		"0"
+	}
+
+	altattack
+	{
+		mp_damage		"70"
+	}
+}
+
+weapon
+{
+	name		"USAS-12"
+
+	attack
+	{
+		clipSize		"10"
+
+		//damage per pellet, USAS has 12 pellets
+		mp_damage		"3"
+		mp_extraClips		"1"
+	}
+}
+
+weapon
+{
+	name		"M590"
+
+	attack
+	{
+		clipSize		"9"
+
+		//damage per pellet, M590 has 8 pellets
+		mp_damage		"3"
+		mp_extraClips		"1"
+	}
+
+	altattack
+	{
+		mp_damage		"70"
+	}
+}
+
+weapon
+{
+	name		"Micro Uzi"
+
+	attack
+	{
+		clipSize		"30"
+		mp_damage		"10"
+		mp_extraClips		"0"
+	}
+}
+
+weapon
+{
+	name		"M3A1"
+	
+	attack
+	{
+		clipSize		"30"
+		mp_damage		"10"
+		mp_extraClips		"0"
+	}
+}
+
+weapon
+{
+	name		"M4"
+
+	attack
+	{
+		clipSize		"30"
+		mp_damage		"10"
+		mp_extraClips		"0"
+	}
+
+	altattack
+	{
+		clipSize		"1"
+		mp_damage		"75"
+		mp_radius		"200"
+		mp_extraClips		"1"
+	}
+}
+
+weapon
+{
+	name		"AK74"
+
+	attack
+	{
+		clipSize		"30"
+		mp_damage		"18"
+		mp_extraClips		"0"
+	}
+
+	altattack
+	{
+		mp_damage		"75"
+	}
+}
+
+weapon
+{
+	name		"MSG90A1"
+
+	attack
+	{
+		clipSize		"5"
+		mp_damage		"50"
+		mp_extraClips		"1"
+	}
+}
+
+weapon
+{
+	name		"M60"
+
+	attack
+	{
+		clipSize		"99"
+		mp_damage		"7"
+		mp_extraClips		"0"
+	}
+}
+
+weapon
+{
+	name		"MM1"
+
+	attack
+	{
+		clipSize		"5"
+		mp_damage		"80"
+		mp_radius		"150"
+		mp_extraClips		"3"
+	}
+}
+
+weapon
+{
+	name		"RPG7"
+
+	attack
+	{
+		clipSize		"1"
+		mp_damage		"300"
+		mp_extraClips		"3"
+	}
+}
+
+weapon
+{
+	name		"M67"
+
+	attack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"1"
+		mp_extraClips		"0"
+	}
+
+	altattack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"1"
+	}
+}
+
+weapon
+{
+	name		"M84"
+
+	attack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"5"
+		mp_extraClips		"1"
+	}
+
+	altattack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"5"
+	}
+}
+
+weapon
+{
+	name		"ANM14"
+
+	attack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"150"
+		mp_extraClips		"1"
+	}
+
+	altattack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"200"
+	}
+}
+
+weapon
+{
+	name		"M15"
+
+	attack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"1"
+		mp_extraClips		"1"
+	}
+
+	altattack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"1"
+	}
+}
+
+weapon
+{
+	name		"F1"
+
+	attack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"200"
+		mp_extraClips		"1"
+	}
+
+	altattack
+	{	
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"200"
+	}
+}
+
+weapon
+{
+	name		"L2A2"
+	
+	attack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"200"
+		mp_extraClips		"1"
+	}
+
+	altattack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"200"
+	}
+}
+
+weapon
+{
+	name		"MDN11"
+
+	attack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"200"
+		mp_extraClips		"1"
+	}
+
+	altattack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"200"
+	}
+}
+
+weapon
+{
+	name		"SMOHG92"
+
+	attack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"200"
+		mp_extraClips		"1"
+	}
+
+	altattack
+	{
+		clipSize		"1"
+		radius			"300"
+		mp_damage		"200"
+	}
+}
