@@ -263,7 +263,6 @@ void QDECL Boe_adminLog( const char *command, const char *by, const char *to, ..
     char        string[1024] = "";
     int         len, i;
     va_list     argptr;
-    va_list     argptr2;
     qtime_t     q;
     fileHandle_t    f;
     char        temp[1024] = "";
@@ -289,12 +288,11 @@ void QDECL Boe_adminLog( const char *command, const char *by, const char *to, ..
     string[39] = ' ';
 
     if((strstr(by, "RCON")) && (!strstr(by, "\\"))){
-        vsprintf( string + 40, by, argptr2); // Boe!Man 3/13/11: Append RCON (as he did it).
+        strncpy(string + 40, by, sizeof(string) - 40); // Boe!Man 3/13/11: Append RCON (as he did it).
     }else{
-        strncpy(temp, by, sizeof(temp));
-        vsprintf( string + 40, temp, argptr2); // Boe!Man 3/13/11: Append the Admin who did it.
+        strncpy(string + 40, by, sizeof(string) - 40); // Boe!Man 3/13/11: Append the Admin who did it.
     }
-    va_end( argptr2 );
+
     // Boe!Man 3/13/11: Make sure the rest of the block gets filled with spaces.
     if(strlen(to) > 5){
         len = strlen(by);

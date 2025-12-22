@@ -97,11 +97,11 @@ qboolean G_LoadEntFile(void)
     else
         Com_Printf(S_COLOR_YELLOW "Loading ent data from \"%s\"\n", entPath);
 
-    if (len >= 131072) {
+    /*if (len >= 131072) {
         Com_Printf( S_COLOR_RED "File too large: %s is %i, max allowed is %i", entPath, len, 131072);
         trap_FS_FCloseFile(entFile);
         return qfalse;
-    }
+    }*/
 
     // Boe!Man 1/9/13: We allocate the buffer ourselves. This fixes a nasty crash within the Linux build.
     entBuffer = (char *)G_TempAlloc(len*sizeof(char));

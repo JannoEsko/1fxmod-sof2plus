@@ -2482,7 +2482,7 @@ void Cmd_Say_f( gentity_t *ent, int mode, qboolean arg0 ) {
     char        fullTextBuffer[MAX_SAY_TEXT];
     char        cmd[MAX_SAY_TEXT];
     int         ignore = -1;
-    qboolean    command, parseTokens = qtrue;
+    qboolean    command = qfalse, parseTokens = qtrue;
 
     void    *GP2, *group;
     char txtlevel[2];
