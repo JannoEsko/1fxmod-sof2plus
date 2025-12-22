@@ -11,11 +11,10 @@ Mainly, those include:
 
 As the original SoF2Plus repository lacks legacy ABI support, compiling 1fxmod (especially 1.00) requires my version of SoF2Plus engine to run - https://github.com/JannoEsko/sof2plus-engine
 
-### NB: You still need to first download 1fxmod from [https://1fxmod.org/download/](https://1fxmod.org/download/) - release builds here only have the library, but not the surrounding files.
-
-There are 2 minor fixes included:
+There are 3 minor changes included:
 * Using colors in adding admin commands (e.g. !^ab) results in adding sadmin (even if the client is not privileged to do so / is only privileged to add b-admin)
 * Add missing GP_Delete in mvchats parsing
+* country.db file updated
 
 Rest of the mod is kept original.
 
