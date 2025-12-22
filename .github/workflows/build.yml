@@ -362,11 +362,50 @@ jobs:
           $platform = if ("${{ matrix.arch }}" -eq "x86_64") { "x64" } else { "x86" }
           msbuild code/1fxplus.sln /p:Configuration="${{ matrix.build_type }}" /p:Platform="$platform" /m
 
+      - name: Collect Mod files (MSVC; Demo)
+        if: always() && matrix.compiler == 'msvc' && matrix.demobuild == 'ON'
+        shell: pwsh
+        run: |
+          mkdir -Force artifacts/1fx
+          Copy-Item -Path files/demo/1fx/* -Destination artifacts/1fx/ -Recurse -Force
+
+      - name: Collect Mod files (MSVC; Gold)
+        if: always() && matrix.compiler == 'msvc' && matrix.goldbuild == 'ON'
+        shell: pwsh
+        run: |
+          mkdir -Force artifacts/1fx
+          Copy-Item -Path files/gold/1fx/* -Destination artifacts/1fx/ -Recurse -Force
+
+      - name: Collect Mod files (MSVC; Silver)
+        if: always() && matrix.compiler == 'msvc' && matrix.goldbuild == 'OFF' && matrix.demobuild == 'OFF'
+        shell: pwsh
+        run: |
+          mkdir -Force artifacts/1fx
+          Copy-Item -Path files/silver/1fx/* -Destination artifacts/1fx/ -Recurse -Force
+
+      - name: Collect Mod files (non-MSVC; Demo)
+        if: always() && matrix.compiler != 'msvc' && matrix.demobuild == 'ON'
+        run: |
+          mkdir -p artifacts/1fx
+          cp -r files/demo/1fx/* artifacts/1fx/ || true
+
+      - name: Collect Mod files (non-MSVC; Gold)
+        if: always() && matrix.compiler != 'msvc' && matrix.goldbuild == 'ON'
+        run: |
+          mkdir -p artifacts/1fx
+          cp -r files/gold/1fx/* artifacts/1fx/ || true
+
+      - name: Collect Mod files (non-MSVC; Silver)
+        if: always() && matrix.compiler != 'msvc' && matrix.goldbuild == 'OFF' && matrix.demobuild == 'OFF'
+        run: |
+          mkdir -p artifacts/1fx
+          cp -r files/silver/1fx/* artifacts/1fx/ || true
+
+
       - name: Collect MSVC artifacts
         if: always() && matrix.compiler == 'msvc'
         shell: pwsh
         run: |
-          mkdir -Force artifacts/1fx
           cd build
           Get-ChildItem -Recurse -Filter "*.dll" | Copy-Item -Destination ../artifacts/1fx/
           if ("${{ matrix.build_type }}" -eq "Debug") {
