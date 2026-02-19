@@ -244,7 +244,7 @@ void mvchat_parseFiles()
 
             // Zero-initialize the sounds pointer array with the
             // number of languages available.
-            memset(mvchatSound->sounds, 0, sizeof(mvchatSoundLang_t) * MVCHAT_NUM_LANGS);
+            memset(mvchatSound->sounds, 0, sizeof(mvchatSound->sounds));
 
             // Strip extra color escapes from the text.
             G_RemoveAdditionalCarets(sText);
