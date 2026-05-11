@@ -619,14 +619,14 @@ void G_FireBullet ( gentity_t* ent, int weapon, int attack )
                     VectorNormalize ( dir );
 
                     // KRIS 9/08/2003 11:59AM
-                    #ifndef _DEMO
+                    //#ifndef _DEMO
                     if (G2Trace[0].mLocation != 0)
                     {
                         location = G2Trace[0].mLocation;
                     }
                     else
                     // KRIS
-                    #endif // not _DEMO
+                    //#endif // not _DEMO
                     location = G_GetHitLocation ( traceEnt, muzzlePoint, dir );
 
                     switch ( location )
