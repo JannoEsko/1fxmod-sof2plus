@@ -136,10 +136,10 @@ void G_TraceBullet ( weapon_t weapon, trace_t* tr, G2Trace_t G2Trace, vec3_t sta
 
     unlinkCount = 0;
 
-    #ifndef _DEMO
+    //#ifndef _DEMO
     G2Trace[0].mEntityNum = -1;
     G2Trace[0].mLocation = 0;
-    #endif // not _DEMO
+    //#endif // not _DEMO
 
     while ( 1 )
     {
@@ -244,7 +244,7 @@ void G_TraceBullet ( weapon_t weapon, trace_t* tr, G2Trace_t G2Trace, vec3_t sta
 
             trap_LinkEntity ( traceEnt );
         }
-        #ifndef _DEMO
+        //#ifndef _DEMO
         // KRIS 17/07/2003 10:18AM
         else if (tr->fraction != 1 && g_entities[ tr->entityNum ].client && (g_entities[ tr->entityNum ].client->ps.pm_flags & PMF_LEANING))
         {
@@ -413,7 +413,7 @@ void G_TraceBullet ( weapon_t weapon, trace_t* tr, G2Trace_t G2Trace, vec3_t sta
             continue;
         }
         // KRIS
-        #endif // not _DEMO
+        //#endif // not _DEMO
 
         break;
     }
